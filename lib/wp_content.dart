@@ -90,7 +90,7 @@ class WPContent extends StatelessWidget {
     /* paragraph - heading */
     if (paragraph.type == "heading") {
       return Container(
-        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 19.0),
         alignment: alignment,
         child: Text(
           paragraph.teaserText,
@@ -107,7 +107,7 @@ class WPContent extends StatelessWidget {
     /* paragraph - text */
     else if (paragraph.type == "text") {
       return Container(
-        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+        padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 13.0),
         alignment: alignment,
         child: Text(
           paragraph.teaserText,
@@ -124,7 +124,7 @@ class WPContent extends StatelessWidget {
     /* paragraph - image */
     else if (paragraph.type == "image") {
       return Container(
-        padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+        padding: EdgeInsets.fromLTRB(3.0, 10.0, 3.0, 20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

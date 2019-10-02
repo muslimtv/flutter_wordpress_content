@@ -1,3 +1,7 @@
+## [1.0.4] - 2 October, 2019
+
+* Fixed an issue with paragraph spacing
+
 ## [1.0.3] - 2 October, 2019
 
 * Updated package description

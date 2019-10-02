@@ -7,6 +7,7 @@ class Paragraph {
   final String teaserText;
   final String imageUri;
   final String imageCaption;
+  final String jwMediaId;
   final String youtubeVideoId;
   final String soundcloudTrackId;
   final String fontFamily;
@@ -18,6 +19,7 @@ class Paragraph {
       this.teaserText,
       this.imageUri,
       this.imageCaption,
+      this.jwMediaId,
       this.youtubeVideoId,
       this.soundcloudTrackId,
       this.fontFamily,
@@ -31,6 +33,7 @@ class Paragraph {
         teaserText: teaserText,
         imageUri: "",
         imageCaption: "",
+        jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
         fontFamily: fontFamily,
@@ -44,6 +47,7 @@ class Paragraph {
         teaserText: teaserText,
         imageUri: "",
         imageCaption: "",
+        jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
         fontFamily: fontFamily,
@@ -56,6 +60,19 @@ class Paragraph {
       teaserText: "",
       imageUri: imageUri,
       imageCaption: caption,
+      jwMediaId: "",
+      youtubeVideoId: "",
+      soundcloudTrackId: "",
+    );
+  }
+
+  factory Paragraph.jwplayer(String url) {
+    return Paragraph(
+      type: "youtube",
+      teaserText: "",
+      imageUri: "",
+      imageCaption: "",
+      jwMediaId: url,
       youtubeVideoId: "",
       soundcloudTrackId: "",
     );
@@ -67,6 +84,7 @@ class Paragraph {
       teaserText: "",
       imageUri: "",
       imageCaption: "",
+      jwMediaId: "",
       youtubeVideoId: videoId,
       soundcloudTrackId: "",
     );
@@ -78,6 +96,7 @@ class Paragraph {
       teaserText: "",
       imageUri: "",
       imageCaption: "",
+      jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: trackId,
     );

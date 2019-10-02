@@ -142,3 +142,24 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
   }
 }
 ```
+
+#### JWPlayer Embed
+For embedding JWPlayer hosted media, create your own widget for displaying video and inherit
+from the provided `JWPlayerWidget`. This widget will give you access to the `mediaId`. Use
+this ID in your widget to render the player.
+```dart
+class JWPlayerEmbedWidget extends JWPlayerWidget {
+  @override
+  Widget buildWithMediaId(BuildContext context, String mediaId) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          child: Text(mediaId),
+        ),
+      ),
+    );
+  }
+}
+```

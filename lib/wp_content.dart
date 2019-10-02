@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
 import 'external/SoundCloudWidget.dart';
 import 'external/YouTubeWidget.dart';
 import 'external/IssuuWidget.dart';
@@ -45,6 +46,9 @@ class WPContent extends StatelessWidget {
   // provide a widget to display Issuu embedded PDFs
   final IssuuWidget issuuEmbedWidget;
 
+  // provide a widget to display JWPlayer video
+  final JWPlayerWidget jwPlayerWidget;
+
   const WPContent(this.rawWPContent,
       {this.fontFamily = '',
       this.fontSize = 19.0,
@@ -52,7 +56,8 @@ class WPContent extends StatelessWidget {
       this.arabicFontFamily = '',
       this.youtubeEmbedWidget,
       this.soundcloudEmbedWidget,
-      this.issuuEmbedWidget});
+      this.issuuEmbedWidget,
+      this.jwPlayerWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -150,6 +155,11 @@ class WPContent extends StatelessWidget {
       );
     }
 
+    /* paragraph - jwplayer embed (https://jwplayer.com) */
+    else if (paragraph.type == "jwplayer" && jwPlayerWidget != null) {
+      return jwPlayerWidget.buildWithMediaId(context, paragraph.jwMediaId);
+    }
+
     /* paragraph - youtube embed (https://youtube.com) */
     else if (paragraph.type == "youtube" && youtubeEmbedWidget != null) {
       return youtubeEmbedWidget.buildWithVideoId(
@@ -192,6 +202,20 @@ class WPContent extends StatelessWidget {
         } else if (c.startsWith("core-embed/issuu")) {
           processedParagraphs
               .add(Paragraph.issuu(SimpleArticle.pdfArticle(c, null)));
+        } else if (c.startsWith("shortcode")) {
+          RegExpMatch regExMatch =
+              RegExp(r'\[(\w+[\s*]+)*(\w+)\]').firstMatch(c);
+
+          try {
+            switch (regExMatch.group(1).trim()) {
+              case "jwplayer":
+                processedParagraphs
+                    .add(Paragraph.jwplayer(regExMatch.group(2)));
+                break;
+              default:
+                break;
+            }
+          } catch (exception) {/* ignore */}
         } else if (c.startsWith("core-embed/youtube")) {
           processedParagraphs
               .add(Paragraph.youtubeEmbed(YouTubeWidget.getIdFromUrl(c)));

@@ -3,6 +3,7 @@ Please see the below implementation for how to use this plugin.
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
+import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
 import 'package:flutter_wordpress_content/external/SoundCloudWidget.dart';
 import 'package:flutter_wordpress_content/external/YouTubeWidget.dart';
 import 'package:flutter_wordpress_content/model/SimpleArticle.dart';
@@ -24,6 +25,7 @@ class WordPressContentExample extends StatelessWidget {
             soundcloudEmbedWidget:
                 SoundCloudEmbedWidget("Audio Title", "Audio Subtitle"),
             issuuEmbedWidget: IssueEmbedWidget(),
+            jwPlayerWidget: JWPlayerEmbedWidget(),
           ),
         ),
       ),
@@ -93,6 +95,21 @@ class IssueEmbedWidget extends IssuuWidget {
                 },
               ));
             }),
+      ),
+    );
+  }
+}
+
+class JWPlayerEmbedWidget extends JWPlayerWidget {
+  @override
+  Widget buildWithMediaId(BuildContext context, String mediaId) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          child: Text(mediaId),
+        ),
       ),
     );
   }

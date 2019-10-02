@@ -1,3 +1,7 @@
+## [1.0.5] - 2 October, 2019
+
+* Added JWPlayerWidget for embedding media hosted by your JW Player Account
+
 ## [1.0.4] - 2 October, 2019
 
 * Fixed an issue with paragraph spacing

@@ -1,3 +1,11 @@
+## [1.0.3] - 2 October, 2019
+
+* Updated package description
+
+## [1.0.2] - 2 October, 2019
+
+* Changed embed helper widgets to simple classes
+
 ## [1.0.1] - 2 October, 2019
 
 * Changed embed helper widgets to StatelessWidgets

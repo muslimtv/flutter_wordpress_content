@@ -151,12 +151,15 @@ class WPContent extends StatelessWidget {
             Container(
               height: 7.0,
             ),
-            Text(
-              paragraph.imageCaption,
-              style: Theme.of(context).textTheme.caption.copyWith(
-                    color: Colors.black87,
-                    fontFamily: fontFamily,
-                  ),
+            /* image caption */
+            RichText(
+              text: TextSpan(
+                children: paragraph.textSpans,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                      color: Colors.black87,
+                      fontFamily: fontFamily,
+                    ),
+              ),
             )
           ],
         ),
@@ -206,7 +209,9 @@ class WPContent extends StatelessWidget {
           }
 
           processedParagraphs.add(Paragraph.image(
-              RegExp(r'src\s*=\s*"(.+?)"').firstMatch(c).group(1), caption));
+              RegExp(r'src\s*=\s*"(.+?)"').firstMatch(c).group(1),
+              caption,
+              parseFigureCaptionHTML(caption, baseFontSize: fontSize)));
         } else if (c.startsWith("core-embed/issuu")) {
           processedParagraphs
               .add(Paragraph.issuu(SimpleArticle.pdfArticle(c, null)));

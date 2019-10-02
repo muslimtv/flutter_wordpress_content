@@ -35,6 +35,14 @@ Paragraph parseParagraphHTML(String content,
       textAlign);
 }
 
+List<TextSpan> parseFigureCaptionHTML(String content,
+    {double baseFontSize = 19.0}) {
+  dom.Element contentBodyElement = parse(content).body;
+
+  return _iterateThroughContentChildren(
+      contentBodyElement.children, baseFontSize);
+}
+
 List<TextSpan> _iterateThroughContentChildren(
     List<dom.Element> children, double baseFontSize) {
   List<TextSpan> textSpans = List<TextSpan>();
@@ -45,15 +53,15 @@ List<TextSpan> _iterateThroughContentChildren(
     /* superscript */
     if (child.localName == "sup") {
       textSpans.add(TextSpan(
-          text: "(${child.text})",
-          style: TextStyle(fontSize: 0.5 * baseFontSize)));
+          text: " ${child.text}",
+          style: TextStyle(fontSize: 0.7 * baseFontSize)));
     }
 
     /* subscript */
     else if (child.localName == "sub") {
       textSpans.add(TextSpan(
-          text: "(${child.text})",
-          style: TextStyle(fontSize: 0.5 * baseFontSize)));
+          text: " ${child.text}",
+          style: TextStyle(fontSize: 0.7 * baseFontSize)));
     }
 
     /* strong */

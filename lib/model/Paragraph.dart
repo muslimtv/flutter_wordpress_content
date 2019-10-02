@@ -8,7 +8,6 @@ class Paragraph {
   final String rawContent;
   final List<TextSpan> textSpans;
   final String imageUri;
-  final String imageCaption;
   final String jwMediaId;
   final String youtubeVideoId;
   final String soundcloudTrackId;
@@ -21,7 +20,6 @@ class Paragraph {
       this.rawContent,
       this.textSpans,
       this.imageUri,
-      this.imageCaption,
       this.jwMediaId,
       this.youtubeVideoId,
       this.soundcloudTrackId,
@@ -36,7 +34,6 @@ class Paragraph {
         rawContent: rawContent,
         textSpans: textSpans,
         imageUri: "",
-        imageCaption: "",
         jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
@@ -51,7 +48,6 @@ class Paragraph {
         rawContent: rawContent,
         textSpans: textSpans,
         imageUri: "",
-        imageCaption: "",
         jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
@@ -59,13 +55,13 @@ class Paragraph {
         textAlign: textAlign);
   }
 
-  factory Paragraph.image(String imageUri, String caption) {
+  factory Paragraph.image(
+      String imageUri, String caption, List<TextSpan> captionSpans) {
     return Paragraph(
       type: "image",
-      rawContent: "",
-      textSpans: List<TextSpan>(),
+      rawContent: caption,
+      textSpans: captionSpans,
       imageUri: imageUri,
-      imageCaption: caption,
       jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: "",
@@ -78,7 +74,6 @@ class Paragraph {
       rawContent: "",
       textSpans: List<TextSpan>(),
       imageUri: "",
-      imageCaption: "",
       jwMediaId: url,
       youtubeVideoId: "",
       soundcloudTrackId: "",
@@ -91,7 +86,6 @@ class Paragraph {
       rawContent: "",
       textSpans: List<TextSpan>(),
       imageUri: "",
-      imageCaption: "",
       jwMediaId: "",
       youtubeVideoId: videoId,
       soundcloudTrackId: "",
@@ -104,7 +98,6 @@ class Paragraph {
       rawContent: "",
       textSpans: List<TextSpan>(),
       imageUri: "",
-      imageCaption: "",
       jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: trackId,
@@ -117,7 +110,6 @@ class Paragraph {
         rawContent: "",
         textSpans: List<TextSpan>(),
         imageUri: "",
-        imageCaption: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
         pdf: pdfArticle);
@@ -158,7 +150,6 @@ class Paragraph {
         rawContent: rawContent,
         textSpans: textSpans,
         imageUri: json["imageUri"],
-        imageCaption: json["imageCaption"],
         youtubeVideoId: json["youtubeVideoId"],
         soundcloudTrackId: json["soundcloudTrackId"],
         fontFamily: fontFamily,
@@ -170,7 +161,6 @@ class Paragraph {
       'type': type,
       'rawContent': rawContent,
       'imageUri': imageUri,
-      'imageCaption': imageCaption,
       'youtubeVideoId': youtubeVideoId,
       'soundcloudTrackId': soundcloudTrackId,
       'fontFamily': fontFamily,

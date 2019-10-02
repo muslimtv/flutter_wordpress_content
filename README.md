@@ -52,12 +52,14 @@ this ID in your widget to render YouTube player.
 ```dart
 class YouTubeEmbedWidget extends YouTubeWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithVideoId(BuildContext context, String videoId) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
       child: AspectRatio(
         aspectRatio: 16 / 9,
-        child: MyYouTubePlayer(videoId),
+        child: Container(
+          child: Text(videoId),
+        ),
       ),
     );
   }
@@ -70,7 +72,7 @@ from the provided `IssuuWidget`. This widget will give you access to an instance
 ```dart
 class IssueEmbedWidget extends IssuuWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithPDF(BuildContext context, SimpleArticle pdf) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Center(
@@ -90,7 +92,9 @@ class IssueEmbedWidget extends IssuuWidget {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute<void>(
                 builder: (context) {
-                  return MyPDFViewer(pdf);
+                  return Container(
+                    child: Text(pdf.paragraphRawContent),
+                  );
                 },
               ));
             }),
@@ -98,6 +102,7 @@ class IssueEmbedWidget extends IssuuWidget {
     );
   }
 }
+
 ```
 The instance of `SimpleArticle` will give you access to raw content where you can extract
 the PDF url. See below for an example. Use this URL to then display PDF in your widget.
@@ -125,10 +130,14 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
   SoundCloudEmbedWidget(this.title, this.subtitle);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithTrackId(BuildContext context, String trackId) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
-      child: SoundCloudPlayer(title, subtitle, trackId),
+      child: Container(
+        child: Column(
+          children: <Widget>[Text(title), Text(subtitle), Text(trackId)],
+        ),
+      ),
     );
   }
 }

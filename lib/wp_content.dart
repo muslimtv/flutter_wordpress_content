@@ -152,20 +152,19 @@ class WPContent extends StatelessWidget {
 
     /* paragraph - youtube embed (https://youtube.com) */
     else if (paragraph.type == "youtube" && youtubeEmbedWidget != null) {
-      youtubeEmbedWidget.videoId = paragraph.youtubeVideoId;
-      return youtubeEmbedWidget;
+      return youtubeEmbedWidget.buildWithVideoId(
+          context, paragraph.youtubeVideoId);
     }
 
     /* paragraph - soundcloud embed (https://soundcloud.com) */
     else if (paragraph.type == "soundcloud" && soundcloudEmbedWidget != null) {
-      soundcloudEmbedWidget.trackId = paragraph.soundcloudTrackId;
-      return soundcloudEmbedWidget;
+      return soundcloudEmbedWidget.buildWithTrackId(
+          context, paragraph.soundcloudTrackId);
     }
 
     /* paragraph - issuu embed (http://issuu.com) */
     else if (paragraph.type == "issuu" && issuuEmbedWidget != null) {
-      issuuEmbedWidget.pdf = paragraph.pdf;
-      return issuuEmbedWidget;
+      return issuuEmbedWidget.buildWithPDF(context, paragraph.pdf);
     }
 
     /* paragraph - unexpected (silently ignore) */

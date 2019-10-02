@@ -4,9 +4,9 @@ class SimpleArticle {
   final int id;
   final String title;
   final String link;
-  final String published_date;
-  final String published_since;
-  final String teaser_text;
+  final String publishedDate;
+  final String publishedSince;
+  final String teaserText;
   final String imageURL;
   final String parentCategory;
   final String category;
@@ -24,9 +24,9 @@ class SimpleArticle {
     this.id,
     this.title,
     this.link,
-    this.published_date,
-    this.published_since,
-    this.teaser_text,
+    this.publishedDate,
+    this.publishedSince,
+    this.teaserText,
     this.imageURL,
     this.parentCategory,
     this.category,
@@ -45,9 +45,9 @@ class SimpleArticle {
       int id,
       String title,
       String link,
-      String published_date,
-      String published_since,
-      String teaser_text,
+      String publishedDate,
+      String publishedSince,
+      String teaserText,
       String imageURL,
       String parentCategory,
       String category,
@@ -64,9 +64,9 @@ class SimpleArticle {
         id: id,
         title: title,
         link: link,
-        published_date: published_date,
-        published_since: published_since,
-        teaser_text: teaser_text,
+        publishedDate: publishedDate,
+        publishedSince: publishedSince,
+        teaserText: teaserText,
         imageURL: imageURL,
         parentCategory: parentCategory,
         category: category,
@@ -82,10 +82,7 @@ class SimpleArticle {
   }
 
   factory SimpleArticle.pdfArticle(String content, String link) {
-    return SimpleArticle(
-      paragraphRawContent: content,
-      link: link
-    );
+    return SimpleArticle(paragraphRawContent: content, link: link);
   }
 
   factory SimpleArticle.fromJson(Map<String, dynamic> json) {
@@ -93,17 +90,16 @@ class SimpleArticle {
 
     List<String> authors = List<String>();
     try {
-      authors =
-          json["authors"].map((a) => a).toList().cast<String>();
+      authors = json["authors"].map((a) => a).toList().cast<String>();
     } catch (exception) {/* ignore */}
 
     return SimpleArticle(
       id: json["id"],
       title: json["title"],
       link: json["link"],
-      published_date: json["published_date"],
-      published_since: json["published_since"],
-      teaser_text: json["teaser_text"],
+      publishedDate: json["publishedDate"],
+      publishedSince: json["publishedSince"],
+      teaserText: json["teaserText"],
       imageURL: json["imageURL"],
       category: json["category"],
       issueTitle: json["issueTitle"],
@@ -123,9 +119,9 @@ class SimpleArticle {
       'id': id,
       'title': title,
       'link': link,
-      'published_date': published_date,
-      'published_since': published_since,
-      'teaser_text': teaser_text,
+      'publishedDate': publishedDate,
+      'publishedSince': publishedSince,
+      'teaserText': teaserText,
       'imageURL': imageURL,
       'parentCategory': parentCategory,
       'category': category,

@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-class YouTubeWidget extends StatelessWidget {
-  String videoId;
-
+class YouTubeWidget {
   static String getIdFromUrl(String url, [bool trimWhitespaces = true]) {
     if (url == null || url.length == 0) return null;
 
@@ -31,8 +29,9 @@ class YouTubeWidget extends StatelessWidget {
     new RegExp(r"https:\/\/youtu\.be\/([_\-a-zA-Z0-9]{11}).*$")
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+  Widget buildWithVideoId(BuildContext context, String videoId) {
+    return Container(
+      child: Text("YouTubeWidget not implemented"),
+    );
   }
 }

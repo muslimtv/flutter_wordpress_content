@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
 import 'package:flutter_wordpress_content/external/SoundCloudWidget.dart';
 import 'package:flutter_wordpress_content/external/YouTubeWidget.dart';
+import 'package:flutter_wordpress_content/model/SimpleArticle.dart';
 import 'package:flutter_wordpress_content/wp_content.dart';
 
 class WordPressContentExample extends StatelessWidget {
@@ -32,7 +33,7 @@ class WordPressContentExample extends StatelessWidget {
 
 class YouTubeEmbedWidget extends YouTubeWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithVideoId(BuildContext context, String videoId) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
       child: AspectRatio(
@@ -52,7 +53,7 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
   SoundCloudEmbedWidget(this.title, this.subtitle);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithTrackId(BuildContext context, String trackId) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
       child: Container(
@@ -66,7 +67,7 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
 
 class IssueEmbedWidget extends IssuuWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget buildWithPDF(BuildContext context, SimpleArticle pdf) {
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Center(
@@ -96,4 +97,5 @@ class IssueEmbedWidget extends IssuuWidget {
     );
   }
 }
+
 ```

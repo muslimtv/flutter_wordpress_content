@@ -62,6 +62,11 @@ List<TextSpan> _iterateThroughContentChildren(
           text: child.text, style: TextStyle(fontWeight: FontWeight.bold)));
     }
 
+    /* standard text */
+    else {
+      textSpans.add(TextSpan(text: child.text));
+    }
+
     _iterateThroughContentChildren(child.children, baseFontSize);
   });
 

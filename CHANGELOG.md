@@ -1,3 +1,7 @@
+## [1.0.7] - 2 October, 2019
+
+* Fixed an issue with TextSpan rendering
+
 ## [1.0.6] - 2 October, 2019
 
 * Updated wp_parser to use TextSpan with RichText instead of Unicode for superscript and subscript

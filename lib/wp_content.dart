@@ -19,6 +19,9 @@ class WPContent extends StatelessWidget {
   // or for image <!-- wp:image -->
   final String rawWPContent;
 
+  // set text direction
+  final TextDirection textDirection;
+
   // default font family for text
   final String fontFamily;
 
@@ -50,9 +53,10 @@ class WPContent extends StatelessWidget {
   final JWPlayerWidget jwPlayerWidget;
 
   const WPContent(this.rawWPContent,
-      {this.fontFamily = '',
+      {this.textDirection = TextDirection.ltr,
+      this.fontFamily = '',
       this.fontSize = 19.0,
-      this.paragraphArabicIdentifier = 'tk-adobe-arabic',
+      this.paragraphArabicIdentifier,
       this.arabicFontFamily = '',
       this.youtubeEmbedWidget,
       this.soundcloudEmbedWidget,
@@ -105,7 +109,7 @@ class WPContent extends StatelessWidget {
                 fontFamily: paragraph.fontFamily,
                 fontSize: fontSize + 5.0),
           ),
-          textDirection: TextDirection.rtl,
+          textDirection: textDirection,
           textAlign: paragraph.textAlign,
         ),
       );
@@ -124,7 +128,7 @@ class WPContent extends StatelessWidget {
                 fontFamily: paragraph.fontFamily,
                 fontSize: fontSize),
           ),
-          textDirection: TextDirection.rtl,
+          textDirection: textDirection,
           textAlign: paragraph.textAlign,
         ),
       );
@@ -237,7 +241,8 @@ class WPContent extends StatelessWidget {
               .replaceAll('\n', '')
               .replaceAll('\r', '');
 
-          bool isArabic = headingContent.contains(paragraphArabicIdentifier);
+          bool isArabic = paragraphArabicIdentifier != null &&
+              headingContent.contains(paragraphArabicIdentifier);
 
           TextAlign textAlign = TextAlign.justify;
 
@@ -260,7 +265,8 @@ class WPContent extends StatelessWidget {
               .replaceAll('\n', '')
               .replaceAll('\r', '');
 
-          bool isArabic = paragraphContent.contains(paragraphArabicIdentifier);
+          bool isArabic = paragraphArabicIdentifier != null &&
+              paragraphContent.contains(paragraphArabicIdentifier);
 
           TextAlign textAlign = TextAlign.justify;
 

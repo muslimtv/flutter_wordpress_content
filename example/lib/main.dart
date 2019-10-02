@@ -14,6 +14,7 @@ class WordPressContentExample extends StatelessWidget {
         body: Container(
           child: WPContent(
             "raw content",
+            textDirection: TextDirection.ltr,
             fontFamily: 'my_font_family',
             fontSize: 19.0,
             paragraphArabicIdentifier: 'tk-adobe-arabic',

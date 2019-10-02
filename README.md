@@ -25,6 +25,7 @@ For detail on providing YouTube, SoundCloud or Issue widgets, see __Supported Ty
 Widget buildMyContent(BuildContext context, String rawContent) {
     return WPContent(
       rawContent,
+      textDirection: TextDirection.ltr,
       fontFamily: ALFAZL_FONT_FAMILY,
       fontSize: 19.0,
       paragraphArabicIdentifier: PARAGRAPH_ARABIC_IDENTIFIER,

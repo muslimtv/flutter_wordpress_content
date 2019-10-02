@@ -243,8 +243,8 @@ class WPContent extends StatelessWidget {
           String headingContent = c
               .substring(
                   c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:heading -->"))
-              .replaceAll('\n', '')
-              .replaceAll('\r', '');
+              .replaceAll('\n', ' ')
+              .replaceAll('\r', ' ');
 
           bool isArabic = paragraphArabicIdentifier != null &&
               headingContent.contains(paragraphArabicIdentifier);
@@ -267,8 +267,8 @@ class WPContent extends StatelessWidget {
           String paragraphContent = c
               .substring(
                   c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:paragraph -->"))
-              .replaceAll('\n', '')
-              .replaceAll('\r', '');
+              .replaceAll('\n', ' ')
+              .replaceAll('\r', ' ');
 
           bool isArabic = paragraphArabicIdentifier != null &&
               paragraphContent.contains(paragraphArabicIdentifier);

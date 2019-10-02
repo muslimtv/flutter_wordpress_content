@@ -1,14 +1,17 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'model/Paragraph.dart';
 
 // Supported parsers for the content
 final List<Function> _contentParsers = [
   _parseSuperscript,
   _parseSubscript,
-  _parseStrongTags
+  _parseStrongTags,
+  _parseATags,
 ];
 
 // Parse heading text
@@ -45,7 +48,6 @@ List<TextSpan> parseFigureCaptionHTML(String content,
     _contentParsers.forEach((p) => data = p(data, baseFontSize));
     return _decodeHTML(data);
   } catch (exception) {
-    print(exception);
     return List<TextSpan>();
   }
 }
@@ -130,7 +132,6 @@ List<TextSpan> _parseSubscript(List<TextSpan> content, double baseFontSize) {
 
       /* remaining content */
       if (tagEndIndex < contentSpan.text.length - 1) {
-        print(contentSpan.text.substring(tagEndIndex));
         spans.addAll(_parseSuperscript([
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
@@ -177,7 +178,70 @@ List<TextSpan> _parseStrongTags(List<TextSpan> content, double baseFontSize) {
 
       /* remaining content */
       if (tagEndIndex < contentSpan.text.length - 1) {
-        print(contentSpan.text.substring(tagEndIndex));
+        spans.addAll(_parseSuperscript([
+          TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
+        ], baseFontSize));
+      }
+    } else {
+      spans.add(contentSpan);
+    }
+  });
+
+  return spans;
+}
+
+// Parse a tags <a></a>
+List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
+  final String tag = "<a href=";
+  final String endTag = "</a>";
+  final int tagLength = 8;
+  final int endTagLength = 4;
+
+  List<TextSpan> spans = List<TextSpan>();
+
+  if (content == null || content.isEmpty) return spans;
+
+  content.forEach((contentSpan) {
+    /* contains superscript */
+    if (contentSpan.text.contains(tag)) {
+      int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
+      int tagEndIndex = contentSpan.text.indexOf(endTag);
+
+      /* add content before tag */
+      if (tagStartIndex > 0) {
+        spans.add(TextSpan(
+            text: parse(contentSpan.text.substring(0, tagStartIndex - 5))
+                .body
+                .text));
+      }
+
+      String tagContent =
+          contentSpan.text.substring(tagStartIndex, tagEndIndex);
+
+      var regex = new RegExp(r'<a[^>]+href=\"(.*?)\"[^>]*>(.*)?</a>');
+
+      Match match = regex.firstMatch("<a href=" + tagContent + "</a>");
+
+      String linkText = "";
+      String link = "";
+
+      if (match != null && match.groupCount >= 1) {
+        link = match.group(1);
+        linkText = match.group(2);
+      }
+
+      spans.add(TextSpan(
+          text: linkText + " ",
+          style: TextStyle(color: Colors.blue[800]),
+          recognizer: new TapGestureRecognizer()
+            ..onTap = () async {
+              if (await canLaunch(link)) {
+                await launch(link);
+              }
+            }));
+
+      /* remaining content */
+      if (tagEndIndex < contentSpan.text.length - 1) {
         spans.addAll(_parseSuperscript([
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));

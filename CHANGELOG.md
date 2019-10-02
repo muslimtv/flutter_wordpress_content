@@ -1,3 +1,7 @@
+## [1.0.10] - 2 October, 2019
+
+* added parser for <a> tags with url_launcher to open links in browser
+
 ## [1.0.9] - 2 October, 2019
 
 * Implemented Superscript <sup>, Subscript <sub> and <strong> tag parser

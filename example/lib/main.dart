@@ -14,7 +14,8 @@ class WordPressContentExample extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: SingleChildScrollView(
-          child: WPContent("raw_content",
+          child: WPContent(
+            "raw_content",
             textDirection: TextDirection.ltr,
             fontFamily: 'my_font_family',
             fontSize: 19.0,

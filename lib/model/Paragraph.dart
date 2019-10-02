@@ -142,6 +142,8 @@ class Paragraph {
         textSpans = parseParagraphHTML(rawContent,
                 textAlign: textAlign, fontFamily: fontFamily)
             .textSpans;
+      } else if (type == "image") {
+        textSpans = parseFigureCaptionHTML(rawContent);
       }
     } catch (exception) {/* ignore */}
 

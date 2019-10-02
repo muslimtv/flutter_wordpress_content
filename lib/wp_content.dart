@@ -55,7 +55,7 @@ class WPContent extends StatelessWidget {
   const WPContent(this.rawWPContent,
       {this.textDirection = TextDirection.ltr,
       this.fontFamily = '',
-      this.fontSize = 19.0,
+      this.fontSize = 16.0,
       this.paragraphArabicIdentifier,
       this.arabicFontFamily = '',
       this.youtubeEmbedWidget,
@@ -155,10 +155,10 @@ class WPContent extends StatelessWidget {
             RichText(
               text: TextSpan(
                 children: paragraph.textSpans,
-                style: Theme.of(context).textTheme.caption.copyWith(
-                      color: Colors.black87,
-                      fontFamily: fontFamily,
-                    ),
+                style: DefaultTextStyle.of(context).style.copyWith(
+                    color: Colors.black87,
+                    fontFamily: fontFamily,
+                    fontSize: 0.7 * fontSize),
               ),
             )
           ],
@@ -211,7 +211,7 @@ class WPContent extends StatelessWidget {
           processedParagraphs.add(Paragraph.image(
               RegExp(r'src\s*=\s*"(.+?)"').firstMatch(c).group(1),
               caption,
-              parseFigureCaptionHTML(caption, baseFontSize: fontSize)));
+              parseFigureCaptionHTML(caption, baseFontSize: 0.7 * fontSize)));
         } else if (c.startsWith("core-embed/issuu")) {
           processedParagraphs
               .add(Paragraph.issuu(SimpleArticle.pdfArticle(c, null)));

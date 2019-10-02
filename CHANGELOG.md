@@ -1,3 +1,11 @@
+## [1.0.9] - 2 October, 2019
+
+* Implemented Superscript <sup>, Subscript <sub> and <strong> tag parser
+
+## [1.0.8] - 2 October, 2019
+
+* Fixed an issue with image captions where super/sub scripts weren't being parsed
+
 ## [1.0.7] - 2 October, 2019
 
 * Fixed an issue with TextSpan rendering

@@ -6,14 +6,15 @@ import 'package:flutter_wordpress_content/external/YouTubeWidget.dart';
 import 'package:flutter_wordpress_content/model/SimpleArticle.dart';
 import 'package:flutter_wordpress_content/wp_content.dart';
 
+void main() => runApp(WordPressContentExample());
+
 class WordPressContentExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Container(
-          child: WPContent(
-            "raw content",
+        body: SingleChildScrollView(
+          child: WPContent("raw_content",
             textDirection: TextDirection.ltr,
             fontFamily: 'my_font_family',
             fontSize: 19.0,

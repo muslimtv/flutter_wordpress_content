@@ -97,14 +97,16 @@ class WPContent extends StatelessWidget {
       return Container(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 19.0),
         alignment: alignment,
-        child: Text(
-          paragraph.teaserText,
+        child: RichText(
+          text: TextSpan(
+            children: paragraph.textSpans,
+            style: DefaultTextStyle.of(context).style.copyWith(
+                color: Colors.black,
+                fontFamily: paragraph.fontFamily,
+                fontSize: fontSize + 5.0),
+          ),
           textDirection: TextDirection.rtl,
           textAlign: paragraph.textAlign,
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: paragraph.fontFamily,
-              fontSize: fontSize + 5.0),
         ),
       );
     }
@@ -114,14 +116,16 @@ class WPContent extends StatelessWidget {
       return Container(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 13.0),
         alignment: alignment,
-        child: Text(
-          paragraph.teaserText,
+        child: RichText(
+          text: TextSpan(
+            children: paragraph.textSpans,
+            style: DefaultTextStyle.of(context).style.copyWith(
+                color: Colors.black87,
+                fontFamily: paragraph.fontFamily,
+                fontSize: fontSize),
+          ),
           textDirection: TextDirection.rtl,
           textAlign: paragraph.textAlign,
-          style: TextStyle(
-              color: Colors.black87,
-              fontFamily: paragraph.fontFamily,
-              fontSize: fontSize),
         ),
       );
     }
@@ -243,16 +247,12 @@ class WPContent extends StatelessWidget {
             textAlign = TextAlign.left;
           }
 
-          Paragraph processedHeading = parseHeadingHTML(headingContent,
+          processedParagraphs.add(parseHeadingHTML(headingContent,
               isArabic: isArabic,
               textAlign: textAlign,
               fontFamily: fontFamily,
-              arabicFontFamily: arabicFontFamily);
-
-          if (processedHeading.teaserText != null &&
-              processedHeading.teaserText.isNotEmpty) {
-            processedParagraphs.add(processedHeading);
-          }
+              arabicFontFamily: arabicFontFamily,
+              baseFontSize: fontSize));
         } else if (c.startsWith("paragraph")) {
           String paragraphContent = c
               .substring(
@@ -270,20 +270,12 @@ class WPContent extends StatelessWidget {
             textAlign = TextAlign.left;
           }
 
-          Paragraph processedParagraph = parseParagraphHTML(paragraphContent,
+          processedParagraphs.add(parseParagraphHTML(paragraphContent,
               isArabic: isArabic,
               textAlign: textAlign,
               fontFamily: fontFamily,
-              arabicFontFamily: arabicFontFamily);
-
-          if (processedParagraph.teaserText != null &&
-              processedParagraph.teaserText.isNotEmpty) {
-            processedParagraphs.add(parseParagraphHTML(paragraphContent,
-                isArabic: isArabic,
-                textAlign: textAlign,
-                fontFamily: fontFamily,
-                arabicFontFamily: arabicFontFamily));
-          }
+              arabicFontFamily: arabicFontFamily,
+              baseFontSize: fontSize));
         }
       });
     } catch (exception) {/* ignore */}

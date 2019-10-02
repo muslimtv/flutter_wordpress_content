@@ -1,10 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/wp_parser.dart';
 
 import 'SimpleArticle.dart';
 
 class Paragraph {
   final String type;
-  final String teaserText;
+  final String rawContent;
+  final List<TextSpan> textSpans;
   final String imageUri;
   final String imageCaption;
   final String jwMediaId;
@@ -16,7 +18,8 @@ class Paragraph {
 
   const Paragraph(
       {this.type,
-      this.teaserText,
+      this.rawContent,
+      this.textSpans,
       this.imageUri,
       this.imageCaption,
       this.jwMediaId,
@@ -26,11 +29,12 @@ class Paragraph {
       this.textAlign,
       this.pdf});
 
-  factory Paragraph.heading(
-      String teaserText, String fontFamily, TextAlign textAlign) {
+  factory Paragraph.heading(String rawContent, List<TextSpan> textSpans,
+      String fontFamily, TextAlign textAlign) {
     return Paragraph(
         type: "heading",
-        teaserText: teaserText,
+        rawContent: rawContent,
+        textSpans: textSpans,
         imageUri: "",
         imageCaption: "",
         jwMediaId: "",
@@ -40,11 +44,12 @@ class Paragraph {
         textAlign: textAlign);
   }
 
-  factory Paragraph.text(
-      String teaserText, String fontFamily, TextAlign textAlign) {
+  factory Paragraph.text(String rawContent, List<TextSpan> textSpans,
+      String fontFamily, TextAlign textAlign) {
     return Paragraph(
         type: "text",
-        teaserText: teaserText,
+        rawContent: rawContent,
+        textSpans: textSpans,
         imageUri: "",
         imageCaption: "",
         jwMediaId: "",
@@ -57,7 +62,8 @@ class Paragraph {
   factory Paragraph.image(String imageUri, String caption) {
     return Paragraph(
       type: "image",
-      teaserText: "",
+      rawContent: "",
+      textSpans: List<TextSpan>(),
       imageUri: imageUri,
       imageCaption: caption,
       jwMediaId: "",
@@ -69,7 +75,8 @@ class Paragraph {
   factory Paragraph.jwplayer(String url) {
     return Paragraph(
       type: "youtube",
-      teaserText: "",
+      rawContent: "",
+      textSpans: List<TextSpan>(),
       imageUri: "",
       imageCaption: "",
       jwMediaId: url,
@@ -81,7 +88,8 @@ class Paragraph {
   factory Paragraph.youtubeEmbed(String videoId) {
     return Paragraph(
       type: "youtube",
-      teaserText: "",
+      rawContent: "",
+      textSpans: List<TextSpan>(),
       imageUri: "",
       imageCaption: "",
       jwMediaId: "",
@@ -93,7 +101,8 @@ class Paragraph {
   factory Paragraph.soundcloudEmbed(String trackId) {
     return Paragraph(
       type: "soundcloud",
-      teaserText: "",
+      rawContent: "",
+      textSpans: List<TextSpan>(),
       imageUri: "",
       imageCaption: "",
       jwMediaId: "",
@@ -105,7 +114,8 @@ class Paragraph {
   factory Paragraph.issuu(SimpleArticle pdfArticle) {
     return Paragraph(
         type: "issuu",
-        teaserText: "",
+        rawContent: "",
+        textSpans: List<TextSpan>(),
         imageUri: "",
         imageCaption: "",
         youtubeVideoId: "",
@@ -124,21 +134,41 @@ class Paragraph {
           : textAlignString == 'center' ? TextAlign.center : TextAlign.right;
     } catch (exception) {/* ignore */}
 
+    String type = json["type"];
+
+    String rawContent = json["rawContent"];
+
+    String fontFamily = json["fontFamily"];
+
+    List<TextSpan> textSpans = List<TextSpan>();
+    try {
+      if (type == "heading") {
+        textSpans = parseHeadingHTML(rawContent,
+                textAlign: textAlign, fontFamily: fontFamily)
+            .textSpans;
+      } else if (type == "text") {
+        textSpans = parseParagraphHTML(rawContent,
+                textAlign: textAlign, fontFamily: fontFamily)
+            .textSpans;
+      }
+    } catch (exception) {/* ignore */}
+
     return Paragraph(
         type: json["type"],
-        teaserText: json["teaserText"],
+        rawContent: rawContent,
+        textSpans: textSpans,
         imageUri: json["imageUri"],
         imageCaption: json["imageCaption"],
         youtubeVideoId: json["youtubeVideoId"],
         soundcloudTrackId: json["soundcloudTrackId"],
-        fontFamily: json["fontFamily"],
+        fontFamily: fontFamily,
         textAlign: textAlign);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'type': type,
-      'teaserText': teaserText,
+      'rawContent': rawContent,
       'imageUri': imageUri,
       'imageCaption': imageCaption,
       'youtubeVideoId': youtubeVideoId,

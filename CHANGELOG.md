@@ -1,3 +1,7 @@
+## [1.0.6] - 2 October, 2019
+
+* Updated wp_parser to use TextSpan with RichText instead of Unicode for superscript and subscript
+
 ## [1.0.5] - 2 October, 2019
 
 * Added JWPlayerWidget for embedding media hosted by your JW Player Account

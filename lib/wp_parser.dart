@@ -6,9 +6,9 @@ import 'model/Paragraph.dart';
 
 Paragraph parseHeadingHTML(String content,
     {bool isArabic = false,
-      TextAlign textAlign = TextAlign.left,
-      String arabicFontFamily = "",
-      String fontFamily = ""}) {
+    TextAlign textAlign = TextAlign.left,
+    String arabicFontFamily = "",
+    String fontFamily = ""}) {
   Element contentBodyElement = parse(content).body;
 
   _iterateThroughContentChildren(contentBodyElement.children);
@@ -19,9 +19,9 @@ Paragraph parseHeadingHTML(String content,
 
 Paragraph parseParagraphHTML(String content,
     {bool isArabic = false,
-      TextAlign textAlign = TextAlign.left,
-      String arabicFontFamily = "",
-      String fontFamily = ""}) {
+    TextAlign textAlign = TextAlign.left,
+    String arabicFontFamily = "",
+    String fontFamily = ""}) {
   Element contentBodyElement = parse(content).body;
 
   _iterateThroughContentChildren(contentBodyElement.children);
@@ -53,7 +53,7 @@ void _iterateThroughContentChildren(List<Element> children) {
 
 class CharacterScriptMap {
   Map<String, CharacterScript> characterScriptMap =
-  Map<String, CharacterScript>();
+      Map<String, CharacterScript>();
 
   String mapSuperscript(String s) {
     return s.runes.map((rune) {
@@ -79,7 +79,7 @@ class CharacterScriptMap {
 
   factory CharacterScriptMap.instance() {
     Map<String, CharacterScript> characterScriptMap =
-    Map<String, CharacterScript>();
+        Map<String, CharacterScript>();
 
     characterScriptMap.putIfAbsent(
         "0", () => CharacterScript('\u2070', '\u2080'));

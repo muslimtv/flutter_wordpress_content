@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-class YouTubeWidget extends Widget {
-  String _videoId;
-
-  String get videoId => _videoId;
-
-  set videoId(String value) {
-    _videoId = value;
-  }
+class YouTubeWidget extends StatelessWidget {
+  String videoId;
 
   static String getIdFromUrl(String url, [bool trimWhitespaces = true]) {
     if (url == null || url.length == 0) return null;
@@ -38,7 +32,7 @@ class YouTubeWidget extends Widget {
   ];
 
   @override
-  Element createElement() {
-    return null;
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

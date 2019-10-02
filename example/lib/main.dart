@@ -1,0 +1,95 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
+import 'package:flutter_wordpress_content/external/SoundCloudWidget.dart';
+import 'package:flutter_wordpress_content/external/YouTubeWidget.dart';
+import 'package:flutter_wordpress_content/wp_content.dart';
+
+class WordPressContentExample extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          child: WPContent(
+            "raw content",
+            fontFamily: 'my_font_family',
+            fontSize: 19.0,
+            paragraphArabicIdentifier: 'tk-adobe-arabic',
+            arabicFontFamily: 'my_arabic_font_family',
+            youtubeEmbedWidget: YouTubeEmbedWidget(),
+            soundcloudEmbedWidget:
+                SoundCloudEmbedWidget("Audio Title", "Audio Subtitle"),
+            issuuEmbedWidget: IssueEmbedWidget(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class YouTubeEmbedWidget extends YouTubeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          child: Text(videoId),
+        ),
+      ),
+    );
+  }
+}
+
+class SoundCloudEmbedWidget extends SoundCloudWidget {
+  final String title;
+  final String subtitle;
+
+  SoundCloudEmbedWidget(this.title, this.subtitle);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
+      child: Container(
+        child: Column(
+          children: <Widget>[Text(title), Text(subtitle), Text(trackId)],
+        ),
+      ),
+    );
+  }
+}
+
+class IssueEmbedWidget extends IssuuWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Center(
+        child: RaisedButton(
+            padding: EdgeInsets.all(10.0),
+            color: Colors.green,
+            child: Container(
+              padding: EdgeInsets.only(top: 5.0),
+              child: Text(
+                "View PDF",
+                style: Theme.of(context)
+                    .textTheme
+                    .body1
+                    .copyWith(color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute<void>(
+                builder: (context) {
+                  return Container(
+                    child: Text(pdf.paragraphRawContent),
+                  );
+                },
+              ));
+            }),
+      ),
+    );
+  }
+}

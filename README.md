@@ -19,6 +19,23 @@ comparison:
 <img src="https://example.com/image.png" />
 ```
 ---
+### Using WPContent Class
+For detail on providing YouTube, SoundCloud or Issue widgets, see __Supported Types__ section below.
+```dart
+Widget buildMyContent(BuildContext context, String rawContent) {
+    return WPContent(
+      rawContent,
+      fontFamily: ALFAZL_FONT_FAMILY,
+      fontSize: 19.0,
+      paragraphArabicIdentifier: PARAGRAPH_ARABIC_IDENTIFIER,
+      arabicFontFamily: ALFAZL_FONT_FAMILY_ARABIC,
+      youtubeEmbedWidget: YouTubeEmbedWidget(),
+      soundcloudEmbedWidget:
+          SoundCloudEmbedWidget(article.title, article.category),
+      issuuEmbedWidget: IssueEmbedWidget(),
+    );
+  }
+```
 ### Supported Types
 At this moment, this plugin supports the following types of content.
 
@@ -29,13 +46,90 @@ Standard WP heading.
 Standard WP paragraph.
 
 #### YouTube Embed `<!-- wp:core-embed/youtube -->`
-Standard YouTube embed.
+For embedding YouTube, create your own widget for displaying YouTube video and inherit
+from the provided `YouTubeWidget`. This widget will give you access to the `videoId`. Use
+this ID in your widget to render YouTube player.
+```dart
+class YouTubeEmbedWidget extends YouTubeWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 20.0),
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: MyYouTubePlayer(videoId),
+      ),
+    );
+  }
+}
+```
 
 #### Issue PDF Embed `<!-- wp:core-embed/issuu -->`
-Standard Issuu embed.
+For embedding Issuu pdfs, create your own widget for displaying PDF and inherit
+from the provided `IssuuWidget`. This widget will give you access to an instance of `SimpleArticle`.
+```dart
+class IssueEmbedWidget extends IssuuWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Center(
+        child: RaisedButton(
+            padding: EdgeInsets.all(10.0),
+            color: Colors.green,
+            child: Container(
+              padding: EdgeInsets.only(top: 5.0),
+              child: Text(
+                "View PDF",
+                style: Theme.of(context)
+                    .textTheme
+                    .body1
+                    .copyWith(color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute<void>(
+                builder: (context) {
+                  return MyPDFViewer(pdf);
+                },
+              ));
+            }),
+      ),
+    );
+  }
+}
+```
+The instance of `SimpleArticle` will give you access to raw content where you can extract
+the PDF url. See below for an example. Use this URL to then display PDF in your widget.
+```dart
+String rawContent = mySimpleArticle.paragraphRawContent;
+
+String extractedURL =
+  RegExp(r'(?:"url":")(.*?)(?:")').firstMatch(rawContent).group(1);
+```
 
 #### SoundCloud Embed `<!-- wp:html -->`
 When embedding SoundCloud, please make sure you use the embed code provided by
 SoundCloud and not the standard way of embedding in WordPress. This is necessary
 because the embed code contains track ID which is used to fetch more information
 about the track through SC API.
+
+Inheriting from the provided `SoundCloudWidget` will give you access to `trackId` field.
+Use this ID to fetch the stream URL and metadata and play the audio. For an example of
+how to do that, please see the [flutter_playout](https://pub.dev/packages/flutter_playout) plugin.
+```dart
+class SoundCloudEmbedWidget extends SoundCloudWidget {
+  final String title;
+  final String subtitle;
+
+  SoundCloudEmbedWidget(this.title, this.subtitle);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
+      child: SoundCloudPlayer(title, subtitle, trackId),
+    );
+  }
+}
+```

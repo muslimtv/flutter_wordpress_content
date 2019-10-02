@@ -1,14 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:html_unescape/html_unescape.dart';
 
-class SoundCloudWidget extends Widget {
-  String _trackId;
-
-  String get trackId => _trackId;
-
-  set trackId(String value) {
-    _trackId = value;
-  }
+class SoundCloudWidget extends StatelessWidget {
+  String trackId;
 
   static String getIdFromUrl(String url, [bool trimWhitespaces = true]) {
     if (url == null || url.length == 0) return null;
@@ -37,7 +31,7 @@ class SoundCloudWidget extends Widget {
   ];
 
   @override
-  Element createElement() {
-    return null;
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

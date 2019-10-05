@@ -16,6 +16,9 @@ class WordPressContentExample extends StatelessWidget {
         body: SingleChildScrollView(
           child: WPContent(
             "raw_content",
+            headingTextColor: Colors.black,
+            paragraphTextColor: Colors.black,
+            imageCaptionTextColor: Colors.black,
             textDirection: TextDirection.ltr,
             fontFamily: 'my_font_family',
             fontSize: 19.0,

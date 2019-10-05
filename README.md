@@ -22,18 +22,28 @@ comparison:
 ### Using WPContent Class
 For detail on providing YouTube, SoundCloud or Issue widgets, see __Supported Types__ section below.
 ```dart
-Widget buildMyContent(BuildContext context, String rawContent) {
-    return WPContent(
-      rawContent,
-      textDirection: TextDirection.ltr,
-      fontFamily: ALFAZL_FONT_FAMILY,
-      fontSize: 19.0,
-      paragraphArabicIdentifier: PARAGRAPH_ARABIC_IDENTIFIER,
-      arabicFontFamily: ALFAZL_FONT_FAMILY_ARABIC,
-      youtubeEmbedWidget: YouTubeEmbedWidget(),
-      soundcloudEmbedWidget:
-          SoundCloudEmbedWidget(article.title, article.category),
-      issuuEmbedWidget: IssueEmbedWidget(),
+Widget buildMyContent(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: WPContent(
+            "raw_content",
+            headingTextColor: Colors.black,
+            paragraphTextColor: Colors.black,
+            imageCaptionTextColor: Colors.black,
+            textDirection: TextDirection.ltr,
+            fontFamily: 'my_font_family',
+            fontSize: 19.0,
+            paragraphArabicIdentifier: 'tk-adobe-arabic',
+            arabicFontFamily: 'my_arabic_font_family',
+            youtubeEmbedWidget: YouTubeEmbedWidget(),
+            soundcloudEmbedWidget:
+                SoundCloudEmbedWidget("Audio Title", "Audio Subtitle"),
+            issuuEmbedWidget: IssueEmbedWidget(),
+            jwPlayerWidget: JWPlayerEmbedWidget(),
+          ),
+        ),
+      ),
     );
   }
 ```

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_wordpress_content/model/FeatureImage.dart';
+
 class SimpleArticle {
   final int id;
   final String title;
@@ -7,7 +9,7 @@ class SimpleArticle {
   final String publishedDate;
   final String publishedSince;
   final String teaserText;
-  final String imageURL;
+  final FeatureImage featureImage;
   final String parentCategory;
   final String category;
   final String issueTitle;
@@ -27,7 +29,7 @@ class SimpleArticle {
     this.publishedDate,
     this.publishedSince,
     this.teaserText,
-    this.imageURL,
+    this.featureImage,
     this.parentCategory,
     this.category,
     this.issueTitle,
@@ -48,7 +50,7 @@ class SimpleArticle {
       String publishedDate,
       String publishedSince,
       String teaserText,
-      String imageURL,
+      FeatureImage featureImage,
       String parentCategory,
       String category,
       String issueTitle,
@@ -67,7 +69,7 @@ class SimpleArticle {
         publishedDate: publishedDate,
         publishedSince: publishedSince,
         teaserText: teaserText,
-        imageURL: imageURL,
+        featureImage: featureImage,
         parentCategory: parentCategory,
         category: category,
         issueTitle: issueTitle,
@@ -100,7 +102,7 @@ class SimpleArticle {
       publishedDate: json["publishedDate"],
       publishedSince: json["publishedSince"],
       teaserText: json["teaserText"],
-      imageURL: json["imageURL"],
+      featureImage: FeatureImage.fromJson(json["featureImage"]),
       category: json["category"],
       issueTitle: json["issueTitle"],
       issueTeaserText: json["issueTeaserText"],
@@ -122,7 +124,7 @@ class SimpleArticle {
       'publishedDate': publishedDate,
       'publishedSince': publishedSince,
       'teaserText': teaserText,
-      'imageURL': imageURL,
+      'featureImage': featureImage.toJson(),
       'parentCategory': parentCategory,
       'category': category,
       'issueTitle': issueTitle,

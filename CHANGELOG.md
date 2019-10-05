@@ -1,3 +1,8 @@
+## [1.0.11] - 5 October, 2019
+
+* Added `FeatureImage` class replacing `imageUrl` field in `SimpleArticle`
+* Added the ability to change text colour for Heading, Paragraph and Image Caption
+
 ## [1.0.10] - 2 October, 2019
 
 * added parser for <a> tags with url_launcher to open links in browser

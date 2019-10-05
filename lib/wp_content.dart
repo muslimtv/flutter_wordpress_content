@@ -22,6 +22,15 @@ class WPContent extends StatelessWidget {
   // set text direction
   final TextDirection textDirection;
 
+  // set colour for the heading text
+  final Color headingTextColor;
+
+  // set colour for the paragraph text
+  final Color paragraphTextColor;
+
+  // set colour for the image caption text
+  final Color imageCaptionTextColor;
+
   // default font family for text
   final String fontFamily;
 
@@ -54,6 +63,9 @@ class WPContent extends StatelessWidget {
 
   const WPContent(this.rawWPContent,
       {this.textDirection = TextDirection.ltr,
+      this.headingTextColor = Colors.black,
+      this.paragraphTextColor = Colors.black,
+      this.imageCaptionTextColor = Colors.black,
       this.fontFamily = '',
       this.fontSize = 16.0,
       this.paragraphArabicIdentifier,
@@ -105,7 +117,7 @@ class WPContent extends StatelessWidget {
           text: TextSpan(
             children: paragraph.textSpans,
             style: DefaultTextStyle.of(context).style.copyWith(
-                color: Colors.black,
+                color: headingTextColor,
                 fontFamily: paragraph.fontFamily,
                 fontSize: fontSize + 5.0),
           ),
@@ -124,7 +136,7 @@ class WPContent extends StatelessWidget {
           text: TextSpan(
             children: paragraph.textSpans,
             style: DefaultTextStyle.of(context).style.copyWith(
-                color: Colors.black87,
+                color: paragraphTextColor,
                 fontFamily: paragraph.fontFamily,
                 fontSize: fontSize),
           ),
@@ -156,7 +168,7 @@ class WPContent extends StatelessWidget {
               text: TextSpan(
                 children: paragraph.textSpans,
                 style: DefaultTextStyle.of(context).style.copyWith(
-                    color: Colors.black87,
+                    color: imageCaptionTextColor,
                     fontFamily: fontFamily,
                     fontSize: 0.7 * fontSize),
               ),

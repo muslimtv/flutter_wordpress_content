@@ -1,3 +1,7 @@
+## [1.0.13] - 6 October, 2019
+
+* Override == operator in `SimpleArticle` so that it can work in `contains(object)` in Maps and Lists
+
 ## [1.0.12] - 6 October, 2019
 
 * Added better exception handling for `SimpleArticle`'s to and from json methods

@@ -161,4 +161,12 @@ class SimpleArticle {
   String toJsonString() {
     return json.encode(toJson());
   }
+
+  @override
+  int get hashCode => id;
+
+  @override
+  bool operator ==(other) {
+    return id == other.id;
+  }
 }

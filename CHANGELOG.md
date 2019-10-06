@@ -1,3 +1,7 @@
+## [1.0.12] - 6 October, 2019
+
+* Added better exception handling for `SimpleArticle`'s to and from json methods
+
 ## [1.0.11] - 5 October, 2019
 
 * Added `FeatureImage` class replacing `imageUrl` field in `SimpleArticle`

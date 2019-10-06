@@ -95,6 +95,11 @@ class SimpleArticle {
       authors = json["authors"].map((a) => a).toList().cast<String>();
     } catch (exception) {/* ignore */}
 
+    FeatureImage featureImage = FeatureImage();
+    try {
+      featureImage = FeatureImage.fromJson(json["featureImage"]);
+    } catch (exception) {/* ignore */}
+
     return SimpleArticle(
       id: json["id"],
       title: json["title"],
@@ -102,7 +107,7 @@ class SimpleArticle {
       publishedDate: json["publishedDate"],
       publishedSince: json["publishedSince"],
       teaserText: json["teaserText"],
-      featureImage: FeatureImage.fromJson(json["featureImage"]),
+      featureImage: featureImage,
       category: json["category"],
       issueTitle: json["issueTitle"],
       issueTeaserText: json["issueTeaserText"],
@@ -117,6 +122,11 @@ class SimpleArticle {
   }
 
   Map<String, dynamic> toJson() {
+    Map<String, dynamic> featureImageJson = Map<String, dynamic>();
+    try {
+      featureImageJson = featureImage.toJson();
+    } catch (exception) {/* ignore */}
+
     return {
       'id': id,
       'title': title,
@@ -124,7 +134,7 @@ class SimpleArticle {
       'publishedDate': publishedDate,
       'publishedSince': publishedSince,
       'teaserText': teaserText,
-      'featureImage': featureImage.toJson(),
+      'featureImage': featureImageJson,
       'parentCategory': parentCategory,
       'category': category,
       'issueTitle': issueTitle,

@@ -1,6 +1,6 @@
 name: flutter_wordpress_content
 description: Flutter widget to help parse & render WordPress raw content with support for YouTube, SoundCloud and Issuu PDF embed widgets
-version: 1.0.13
+version: 1.0.14
 author: Muslim Television Ahmadiyya International <developer@mta.tv>
 homepage: https://www.mta.tv
 repository: https://github.com/muslimtv/flutter_wordpress_content

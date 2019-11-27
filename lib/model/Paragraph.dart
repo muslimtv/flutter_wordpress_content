@@ -11,6 +11,7 @@ class Paragraph {
   final String jwMediaId;
   final String youtubeVideoId;
   final String soundcloudTrackId;
+  final String soudcloudEmbedCode;
   final String fontFamily;
   final TextAlign textAlign;
   final SimpleArticle pdf;
@@ -23,6 +24,7 @@ class Paragraph {
       this.jwMediaId,
       this.youtubeVideoId,
       this.soundcloudTrackId,
+      this.soudcloudEmbedCode,
       this.fontFamily,
       this.textAlign,
       this.pdf});
@@ -37,6 +39,7 @@ class Paragraph {
         jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
+        soudcloudEmbedCode: "",
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -51,6 +54,7 @@ class Paragraph {
         jwMediaId: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
+        soudcloudEmbedCode: "",
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -65,6 +69,7 @@ class Paragraph {
       jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: "",
+      soudcloudEmbedCode: "",
     );
   }
 
@@ -77,6 +82,7 @@ class Paragraph {
       jwMediaId: url,
       youtubeVideoId: "",
       soundcloudTrackId: "",
+      soudcloudEmbedCode: "",
     );
   }
 
@@ -89,10 +95,11 @@ class Paragraph {
       jwMediaId: "",
       youtubeVideoId: videoId,
       soundcloudTrackId: "",
+      soudcloudEmbedCode: "",
     );
   }
 
-  factory Paragraph.soundcloudEmbed(String trackId) {
+  factory Paragraph.soundcloudEmbed(String trackId, String embedCode) {
     return Paragraph(
       type: "soundcloud",
       rawContent: "",
@@ -101,6 +108,7 @@ class Paragraph {
       jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: trackId,
+      soudcloudEmbedCode: embedCode,
     );
   }
 
@@ -112,6 +120,7 @@ class Paragraph {
         imageUri: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
+        soudcloudEmbedCode: "",
         pdf: pdfArticle);
   }
 
@@ -154,6 +163,7 @@ class Paragraph {
         imageUri: json["imageUri"],
         youtubeVideoId: json["youtubeVideoId"],
         soundcloudTrackId: json["soundcloudTrackId"],
+        soudcloudEmbedCode: json["soudcloudEmbedCode"],
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -165,6 +175,7 @@ class Paragraph {
       'imageUri': imageUri,
       'youtubeVideoId': youtubeVideoId,
       'soundcloudTrackId': soundcloudTrackId,
+      'soudcloudEmbedCode': soudcloudEmbedCode,
       'fontFamily': fontFamily,
       'textAlign': textAlign == TextAlign.left
           ? 'left'

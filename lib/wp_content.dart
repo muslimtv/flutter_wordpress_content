@@ -5,12 +5,12 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
+
+import 'external/IssuuWidget.dart';
 import 'external/SoundCloudWidget.dart';
 import 'external/YouTubeWidget.dart';
-import 'external/IssuuWidget.dart';
 import 'model/Paragraph.dart';
 import 'model/SimpleArticle.dart';
-
 import 'wp_parser.dart';
 
 class WPContent extends StatelessWidget {
@@ -192,7 +192,7 @@ class WPContent extends StatelessWidget {
     /* paragraph - soundcloud embed (https://soundcloud.com) */
     else if (paragraph.type == "soundcloud" && soundcloudEmbedWidget != null) {
       return soundcloudEmbedWidget.buildWithTrackId(
-          context, paragraph.soundcloudTrackId);
+          context, paragraph.soundcloudTrackId, paragraph.soudcloudEmbedCode);
     }
 
     /* paragraph - issuu embed (http://issuu.com) */
@@ -247,9 +247,11 @@ class WPContent extends StatelessWidget {
         } else if (c.startsWith("html")) {
           /* soundcloud - embed */
           var soundcloudTrackId = SoundCloudWidget.getIdFromUrl(c);
+          var soundcloudEmbedCode = c.substring(
+              c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:html -->"));
           if (soundcloudTrackId != null) {
-            processedParagraphs
-                .add(Paragraph.soundcloudEmbed(soundcloudTrackId));
+            processedParagraphs.add(Paragraph.soundcloudEmbed(
+                soundcloudTrackId, soundcloudEmbedCode));
           }
         } else if (c.startsWith("heading")) {
           String headingContent = c

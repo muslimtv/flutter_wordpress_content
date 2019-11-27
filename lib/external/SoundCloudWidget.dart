@@ -28,7 +28,8 @@ class SoundCloudWidget {
         r"https:\/\/(?:api\.)?soundcloud(?:-nocookie)?\.com\/tracks\/([_\-a-zA-Z0-9]{9,20}).*$"),
   ];
 
-  Widget buildWithTrackId(BuildContext context, String trackId) {
+  Widget buildWithTrackId(
+      BuildContext context, String trackId, String embedCode) {
     return Container(
       child: Text("SoundCloudWidget not implemented"),
     );

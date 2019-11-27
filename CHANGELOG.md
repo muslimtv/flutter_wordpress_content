@@ -1,3 +1,7 @@
+## [1.0.14] - 27 November, 2019
+
+* Changed SoundCloudEmbedWidget to also include original embed code for SoundCloud widget
+
 ## [1.0.13] - 6 October, 2019
 
 * Override == operator in `SimpleArticle` so that it can work in `contains(object)` in Maps and Lists

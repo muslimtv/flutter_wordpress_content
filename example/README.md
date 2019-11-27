@@ -56,7 +56,7 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
   SoundCloudEmbedWidget(this.title, this.subtitle);
 
   @override
-  Widget buildWithTrackId(BuildContext context, String trackId) {
+  Widget buildWithTrackId(BuildContext context, String trackId, String embedCode) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
       child: Container(

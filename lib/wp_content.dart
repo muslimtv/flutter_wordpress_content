@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/external/HearthisAtWidget.dart';
 import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
 
 import 'external/IssuuWidget.dart';
@@ -55,6 +56,9 @@ class WPContent extends StatelessWidget {
   // provide a widget to display SoundCloud embedded audios
   final SoundCloudWidget soundcloudEmbedWidget;
 
+  // provide a widget to display Hearthis.at embedded audios
+  final HearthisAtWidget hearthisAtWidget;
+
   // provide a widget to display Issuu embedded PDFs
   final IssuuWidget issuuEmbedWidget;
 
@@ -72,6 +76,7 @@ class WPContent extends StatelessWidget {
       this.arabicFontFamily = '',
       this.youtubeEmbedWidget,
       this.soundcloudEmbedWidget,
+      this.hearthisAtWidget,
       this.issuuEmbedWidget,
       this.jwPlayerWidget});
 
@@ -101,11 +106,13 @@ class WPContent extends StatelessWidget {
   }
 
   Widget _buildParagraph(BuildContext context, Paragraph paragraph) {
-    Alignment alignment = Alignment.centerRight;
+    Alignment alignment = Alignment.centerLeft;
     if (paragraph.textAlign == TextAlign.left) {
       alignment = Alignment.centerLeft;
     } else if (paragraph.textAlign == TextAlign.center) {
       alignment = Alignment.center;
+    } else if (paragraph.textAlign == TextAlign.right) {
+      alignment = Alignment.centerRight;
     }
 
     /* paragraph - heading */
@@ -195,6 +202,12 @@ class WPContent extends StatelessWidget {
           context, paragraph.soundcloudTrackId, paragraph.soudcloudEmbedCode);
     }
 
+    /* paragraph - hearthis.at embed (https://hearthis.at) */
+    else if (paragraph.type == "hearthis.at" && hearthisAtWidget != null) {
+      return hearthisAtWidget.buildWithTrackId(
+          context, paragraph.hearthisAtTrackId);
+    }
+
     /* paragraph - issuu embed (http://issuu.com) */
     else if (paragraph.type == "issuu" && issuuEmbedWidget != null) {
       return issuuEmbedWidget.buildWithPDF(context, paragraph.pdf);
@@ -246,12 +259,23 @@ class WPContent extends StatelessWidget {
               .add(Paragraph.youtubeEmbed(YouTubeWidget.getIdFromUrl(c)));
         } else if (c.startsWith("html")) {
           /* soundcloud - embed */
-          var soundcloudTrackId = SoundCloudWidget.getIdFromUrl(c);
-          var soundcloudEmbedCode = c.substring(
-              c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:html -->"));
-          if (soundcloudTrackId != null) {
-            processedParagraphs.add(Paragraph.soundcloudEmbed(
-                soundcloudTrackId, soundcloudEmbedCode));
+          if (c.contains("soundcloud.com")) {
+            var soundcloudTrackId = SoundCloudWidget.getIdFromUrl(c);
+            var soundcloudEmbedCode = c.substring(
+                c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:html -->"));
+            if (soundcloudTrackId != null) {
+              processedParagraphs.add(Paragraph.soundcloudEmbed(
+                  soundcloudTrackId, soundcloudEmbedCode));
+            }
+          }
+
+          /* hearthis.at - embed */
+          else if (c.contains("hearthis.at")) {
+            var hearthisAtTrackId = HearthisAtWidget.getIdFromUrl(c);
+            if (hearthisAtTrackId != null) {
+              processedParagraphs
+                  .add(Paragraph.hearthisAtEmbed(hearthisAtTrackId));
+            }
           }
         } else if (c.startsWith("heading")) {
           String headingContent = c
@@ -269,6 +293,8 @@ class WPContent extends StatelessWidget {
             textAlign = TextAlign.center;
           } else if (c.contains('"align":"left"')) {
             textAlign = TextAlign.left;
+          } else if (c.contains('"align":"right"')) {
+            textAlign = TextAlign.right;
           }
 
           processedParagraphs.add(parseHeadingHTML(headingContent,

@@ -1,3 +1,15 @@
+## [1.0.17] - 2 January, 2020
+
+* Fixed an issue causing heading to be right aligned in ltr alignment
+
+## [1.0.16] - 10 December, 2019
+
+* Upgraded cached_network_image to 2.0.0-rc
+
+## [1.0.15] - 10 December, 2019
+
+* Added HearthisAtWidget for embedding audios hosted by your [hearthis.at](https://hearthis.at) account
+
 ## [1.0.14] - 27 November, 2019
 
 * Changed SoundCloudEmbedWidget to also include original embed code for SoundCloud widget

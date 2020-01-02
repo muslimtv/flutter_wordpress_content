@@ -154,6 +154,34 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
 }
 ```
 
+#### HearthisAt (hearthis.at) Embed `<!-- wp:html -->`
+When embedding audios from hearthis.at, please make sure you use the embed code 
+from the share button on the track.
+
+Inheriting from the provided `HearthisAtWidget` will give you access to `trackId` field.
+Use this ID to fetch the stream URL and metadata and play the audio. For an example of
+how to do that, please see the [flutter_playout](https://pub.dev/packages/flutter_playout) plugin.
+```dart
+class HearthisAtEmbedWidget extends HearthisAtWidget {
+  final String title;
+  final String subtitle;
+
+  HearthisAtEmbedWidget(this.title, this.subtitle);
+
+  @override
+  Widget buildWithTrackId(BuildContext context, String trackId) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
+      child: Container(
+        child: Column(
+          children: <Widget>[Text(title), Text(subtitle), Text(trackId)],
+        ),
+      ),
+    );
+  }
+}
+```
+
 #### JWPlayer Embed
 For embedding JWPlayer hosted media, create your own widget for displaying video and inherit
 from the provided `JWPlayerWidget`. This widget will give you access to the `mediaId`. Use

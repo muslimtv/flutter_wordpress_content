@@ -12,6 +12,7 @@ class Paragraph {
   final String youtubeVideoId;
   final String soundcloudTrackId;
   final String soudcloudEmbedCode;
+  final String hearthisAtTrackId;
   final String fontFamily;
   final TextAlign textAlign;
   final SimpleArticle pdf;
@@ -25,6 +26,7 @@ class Paragraph {
       this.youtubeVideoId,
       this.soundcloudTrackId,
       this.soudcloudEmbedCode,
+      this.hearthisAtTrackId,
       this.fontFamily,
       this.textAlign,
       this.pdf});
@@ -40,6 +42,7 @@ class Paragraph {
         youtubeVideoId: "",
         soundcloudTrackId: "",
         soudcloudEmbedCode: "",
+        hearthisAtTrackId: "",
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -55,6 +58,7 @@ class Paragraph {
         youtubeVideoId: "",
         soundcloudTrackId: "",
         soudcloudEmbedCode: "",
+        hearthisAtTrackId: "",
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -70,6 +74,7 @@ class Paragraph {
       youtubeVideoId: "",
       soundcloudTrackId: "",
       soudcloudEmbedCode: "",
+      hearthisAtTrackId: "",
     );
   }
 
@@ -83,6 +88,7 @@ class Paragraph {
       youtubeVideoId: "",
       soundcloudTrackId: "",
       soudcloudEmbedCode: "",
+      hearthisAtTrackId: "",
     );
   }
 
@@ -96,6 +102,7 @@ class Paragraph {
       youtubeVideoId: videoId,
       soundcloudTrackId: "",
       soudcloudEmbedCode: "",
+      hearthisAtTrackId: "",
     );
   }
 
@@ -109,6 +116,21 @@ class Paragraph {
       youtubeVideoId: "",
       soundcloudTrackId: trackId,
       soudcloudEmbedCode: embedCode,
+      hearthisAtTrackId: "",
+    );
+  }
+
+  factory Paragraph.hearthisAtEmbed(String trackId) {
+    return Paragraph(
+      type: "hearthis.at",
+      rawContent: "",
+      textSpans: List<TextSpan>(),
+      imageUri: "",
+      jwMediaId: "",
+      youtubeVideoId: "",
+      soundcloudTrackId: "",
+      soudcloudEmbedCode: "",
+      hearthisAtTrackId: trackId,
     );
   }
 
@@ -121,6 +143,7 @@ class Paragraph {
         youtubeVideoId: "",
         soundcloudTrackId: "",
         soudcloudEmbedCode: "",
+        hearthisAtTrackId: "",
         pdf: pdfArticle);
   }
 
@@ -164,6 +187,7 @@ class Paragraph {
         youtubeVideoId: json["youtubeVideoId"],
         soundcloudTrackId: json["soundcloudTrackId"],
         soudcloudEmbedCode: json["soudcloudEmbedCode"],
+        hearthisAtTrackId: json["hearthisAtTrackId"],
         fontFamily: fontFamily,
         textAlign: textAlign);
   }
@@ -176,6 +200,7 @@ class Paragraph {
       'youtubeVideoId': youtubeVideoId,
       'soundcloudTrackId': soundcloudTrackId,
       'soudcloudEmbedCode': soudcloudEmbedCode,
+      'hearthisAtTrackId': hearthisAtTrackId,
       'fontFamily': fontFamily,
       'textAlign': textAlign == TextAlign.left
           ? 'left'

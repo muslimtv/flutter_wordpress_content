@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/external/HearthisAtWidget.dart';
 import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
 import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
 import 'package:flutter_wordpress_content/external/SoundCloudWidget.dart';
@@ -27,6 +28,8 @@ class WordPressContentExample extends StatelessWidget {
             youtubeEmbedWidget: YouTubeEmbedWidget(),
             soundcloudEmbedWidget:
                 SoundCloudEmbedWidget("Audio Title", "Audio Subtitle"),
+            hearthisAtWidget:
+                HearthisAtEmbedWidget("Audio Title", "Audio Subtitle"),
             issuuEmbedWidget: IssueEmbedWidget(),
             jwPlayerWidget: JWPlayerEmbedWidget(),
           ),
@@ -60,6 +63,25 @@ class SoundCloudEmbedWidget extends SoundCloudWidget {
   @override
   Widget buildWithTrackId(
       BuildContext context, String trackId, String embedCode) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
+      child: Container(
+        child: Column(
+          children: <Widget>[Text(title), Text(subtitle), Text(trackId)],
+        ),
+      ),
+    );
+  }
+}
+
+class HearthisAtEmbedWidget extends HearthisAtWidget {
+  final String title;
+  final String subtitle;
+
+  HearthisAtEmbedWidget(this.title, this.subtitle);
+
+  @override
+  Widget buildWithTrackId(BuildContext context, String trackId) {
     return Container(
       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 30.0),
       child: Container(

@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import 'model/Paragraph.dart';
 
 // Supported parsers for the content
@@ -37,6 +38,19 @@ Paragraph parseParagraphHTML(String content,
   var data = [TextSpan(text: content)];
   _contentParsers.forEach((p) => data = p(data, baseFontSize));
   return Paragraph.text(content, _decodeHTML(data),
+      isArabic ? arabicFontFamily : fontFamily, textAlign);
+}
+
+// Parse quote text
+Paragraph parseQuoteHTML(String content,
+    {bool isArabic = false,
+    TextAlign textAlign = TextAlign.left,
+    String arabicFontFamily = "",
+    String fontFamily = "",
+    double baseFontSize = 16.0}) {
+  var data = [TextSpan(text: content)];
+  _contentParsers.forEach((p) => data = p(data, baseFontSize));
+  return Paragraph.quote(content, _decodeHTML(data),
       isArabic ? arabicFontFamily : fontFamily, textAlign);
 }
 

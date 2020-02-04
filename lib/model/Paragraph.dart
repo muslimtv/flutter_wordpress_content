@@ -63,6 +63,22 @@ class Paragraph {
         textAlign: textAlign);
   }
 
+  factory Paragraph.quote(String rawContent, List<TextSpan> textSpans,
+      String fontFamily, TextAlign textAlign) {
+    return Paragraph(
+        type: "quote",
+        rawContent: rawContent,
+        textSpans: textSpans,
+        imageUri: "",
+        jwMediaId: "",
+        youtubeVideoId: "",
+        soundcloudTrackId: "",
+        soudcloudEmbedCode: "",
+        hearthisAtTrackId: "",
+        fontFamily: fontFamily,
+        textAlign: textAlign);
+  }
+
   factory Paragraph.image(
       String imageUri, String caption, List<TextSpan> captionSpans) {
     return Paragraph(

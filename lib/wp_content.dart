@@ -153,6 +153,26 @@ class WPContent extends StatelessWidget {
       );
     }
 
+    /* paragraph - quote */
+    else if (paragraph.type == "quote") {
+      return Container(
+        padding: EdgeInsets.fromLTRB(25.0, 0.0, 25.0, 13.0),
+        alignment: alignment,
+        child: RichText(
+          text: TextSpan(
+            children: paragraph.textSpans,
+            style: DefaultTextStyle.of(context).style.copyWith(
+                color: paragraphTextColor,
+                fontFamily: paragraph.fontFamily,
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold),
+          ),
+          textDirection: textDirection,
+          textAlign: paragraph.textAlign,
+        ),
+      );
+    }
+
     /* paragraph - image */
     else if (paragraph.type == "image") {
       return Container(
@@ -319,11 +339,29 @@ class WPContent extends StatelessWidget {
             textAlign = TextAlign.center;
           } else if (c.contains('"align":"left"')) {
             textAlign = TextAlign.left;
+          } else if (c.contains('"align":"right"')) {
+            textAlign = TextAlign.right;
           }
 
           processedParagraphs.add(parseParagraphHTML(paragraphContent,
               isArabic: isArabic,
               textAlign: textAlign,
+              fontFamily: fontFamily,
+              arabicFontFamily: arabicFontFamily,
+              baseFontSize: fontSize));
+        } else if (c.startsWith("quote")) {
+          String paragraphContent = c
+              .substring(
+                  c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:quote -->"))
+              .replaceAll('\n', ' ')
+              .replaceAll('\r', ' ');
+
+          bool isArabic = paragraphArabicIdentifier != null &&
+              paragraphContent.contains(paragraphArabicIdentifier);
+
+          processedParagraphs.add(parseQuoteHTML(paragraphContent,
+              isArabic: isArabic,
+              textAlign: TextAlign.center,
               fontFamily: fontFamily,
               arabicFontFamily: arabicFontFamily,
               baseFontSize: fontSize));

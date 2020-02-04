@@ -1,3 +1,7 @@
+## [1.0.18] - 4 February, 2020
+
+* Added support for WP Quotes (<!-- wp:quote -->)
+
 ## [1.0.17] - 2 January, 2020
 
 * Fixed an issue causing heading to be right aligned in ltr alignment

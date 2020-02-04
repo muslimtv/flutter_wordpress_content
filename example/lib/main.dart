@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_wordpress_content/external/HearthisAtWidget.dart';
 import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_wordpress_content/external/SoundCloudWidget.dart';
 import 'package:flutter_wordpress_content/external/YouTubeWidget.dart';
 import 'package:flutter_wordpress_content/model/SimpleArticle.dart';
 import 'package:flutter_wordpress_content/wp_content.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() => runApp(WordPressContentExample());
 
@@ -14,9 +16,10 @@ class WordPressContentExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(),
         body: SingleChildScrollView(
           child: WPContent(
-            "raw_content",
+            '<!-- wp:paragraph --><a href="https://www.mta.tv">MTA</a> hello <!-- /wp:paragraph -->',
             headingTextColor: Colors.black,
             paragraphTextColor: Colors.black,
             imageCaptionTextColor: Colors.black,
@@ -34,6 +37,41 @@ class WordPressContentExample extends StatelessWidget {
             jwPlayerWidget: JWPlayerEmbedWidget(),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Tester extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 5.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 13.0),
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                      text: "MTA",
+                      style: TextStyle(color: Colors.blue[800]),
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () async {
+                          if (await canLaunch("https://www.mta.tv")) {
+                            await launch("https://www.mta.tv");
+                          }
+                        })
+                ],
+                style: TextStyle(color: Colors.blue[800]),
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

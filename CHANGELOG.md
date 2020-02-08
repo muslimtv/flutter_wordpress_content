@@ -1,3 +1,7 @@
+## [1.0.19] - 4 February, 2020
+
+* Added support for WP List (<!-- wp:list -->)
+
 ## [1.0.18] - 4 February, 2020
 
 * Added support for WP Quotes (<!-- wp:quote -->)

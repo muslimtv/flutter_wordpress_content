@@ -365,6 +365,39 @@ class WPContent extends StatelessWidget {
               fontFamily: fontFamily,
               arabicFontFamily: arabicFontFamily,
               baseFontSize: fontSize));
+        } else if (c.startsWith("list")) {
+          String listContent = c
+              .substring(
+                  c.indexOf("-->") + 3, c.lastIndexOf("<!-- /wp:list -->"))
+              .replaceAll('\n', ' ')
+              .replaceAll('\r', ' ')
+              .replaceAll("<ol>", "")
+              .replaceAll("</ol>", "")
+              .replaceAll("</li>", "");
+
+          List<String> listItems = listContent.split("<li>");
+
+          TextAlign textAlign = TextAlign.justify;
+
+          if (c.contains('"align":"center"')) {
+            textAlign = TextAlign.center;
+          } else if (c.contains('"align":"left"')) {
+            textAlign = TextAlign.left;
+          } else if (c.contains('"align":"right"')) {
+            textAlign = TextAlign.right;
+          }
+
+          bool isArabic = paragraphArabicIdentifier != null &&
+              listContent.contains(paragraphArabicIdentifier);
+
+          listItems.forEach((li) {
+            processedParagraphs.add(parseListHTML(li,
+                isArabic: isArabic,
+                textAlign: textAlign,
+                fontFamily: fontFamily,
+                arabicFontFamily: arabicFontFamily,
+                baseFontSize: fontSize));
+          });
         }
       });
     } catch (exception) {/* ignore */}

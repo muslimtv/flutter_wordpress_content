@@ -54,6 +54,19 @@ Paragraph parseQuoteHTML(String content,
       isArabic ? arabicFontFamily : fontFamily, textAlign);
 }
 
+// Parse list text
+Paragraph parseListHTML(String content,
+    {bool isArabic = false,
+    TextAlign textAlign = TextAlign.left,
+    String arabicFontFamily = "",
+    String fontFamily = "",
+    double baseFontSize = 16.0}) {
+  var data = [TextSpan(text: content)];
+  _contentParsers.forEach((p) => data = p(data, baseFontSize));
+  return Paragraph.text(content, _decodeHTML(data),
+      isArabic ? arabicFontFamily : fontFamily, textAlign);
+}
+
 // Parse image caption text
 List<TextSpan> parseFigureCaptionHTML(String content,
     {double baseFontSize = 12.0}) {
@@ -260,6 +273,16 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
+    } else if (contentSpan.text.startsWith("http")) {
+      spans.add(TextSpan(
+          text: contentSpan.text + " ",
+          style: TextStyle(color: Colors.blue[800]),
+          recognizer: new TapGestureRecognizer()
+            ..onTap = () async {
+              if (await canLaunch(contentSpan.text)) {
+                await launch(contentSpan.text);
+              }
+            }));
     } else {
       spans.add(contentSpan);
     }

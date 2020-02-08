@@ -50,6 +50,12 @@ class WPContent extends StatelessWidget {
   // font family for displaying arabic text
   final String arabicFontFamily;
 
+  // text alignment for WP Quote <!-- wp:quote -->
+  final TextAlign quoteTextAlignment;
+
+  // text colour for WP Quote <!-- wp:quote -->
+  final Color quoteTextColour;
+
   // provide a widget to display YouTube embedded videos
   final YouTubeWidget youtubeEmbedWidget;
 
@@ -74,6 +80,8 @@ class WPContent extends StatelessWidget {
       this.fontSize = 16.0,
       this.paragraphArabicIdentifier,
       this.arabicFontFamily = '',
+      this.quoteTextAlignment = TextAlign.center,
+      this.quoteTextColour = Colors.black,
       this.youtubeEmbedWidget,
       this.soundcloudEmbedWidget,
       this.hearthisAtWidget,
@@ -162,7 +170,7 @@ class WPContent extends StatelessWidget {
           text: TextSpan(
             children: paragraph.textSpans,
             style: DefaultTextStyle.of(context).style.copyWith(
-                color: paragraphTextColor,
+                color: quoteTextColour,
                 fontFamily: paragraph.fontFamily,
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold),
@@ -361,7 +369,7 @@ class WPContent extends StatelessWidget {
 
           processedParagraphs.add(parseQuoteHTML(paragraphContent,
               isArabic: isArabic,
-              textAlign: TextAlign.center,
+              textAlign: quoteTextAlignment,
               fontFamily: fontFamily,
               arabicFontFamily: arabicFontFamily,
               baseFontSize: fontSize));

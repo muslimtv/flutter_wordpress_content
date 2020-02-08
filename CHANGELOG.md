@@ -1,3 +1,7 @@
+## [1.0.20] - 8 February, 2020
+
+* Added ability to change text alignment and colour for WP Quotes independent of paragraph style
+
 ## [1.0.19] - 4 February, 2020
 
 * Added support for WP List (<!-- wp:list -->)

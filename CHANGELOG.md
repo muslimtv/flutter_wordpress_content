@@ -1,3 +1,7 @@
+## [1.0.21] - 22 February, 2020
+
+* Updated Hearthis.at base url to app.hearthis.at for embeds
+
 ## [1.0.20] - 8 February, 2020
 
 * Added ability to change text alignment and colour for WP Quotes independent of paragraph style

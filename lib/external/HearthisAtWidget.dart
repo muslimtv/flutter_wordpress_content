@@ -22,7 +22,8 @@ class HearthisAtWidget {
   }
 
   static List<RegExp> _regexps = [
-    new RegExp(r"https:\/\/hearthis\.at\/embed\/([_\-a-zA-Z0-9]{1,20})\/.*$"),
+    new RegExp(
+        r"https:\/\/(?:app\.|m\.)?hearthis\.at\/embed\/([_\-a-zA-Z0-9]{1,20})\/.*$"),
   ];
 
   Widget buildWithTrackId(BuildContext context, String trackId) {

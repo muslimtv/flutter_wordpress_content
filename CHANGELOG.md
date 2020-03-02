@@ -1,3 +1,7 @@
+## [1.0.22] - 2 March, 2020
+
+* Fixed an issue where multiple <strong> tags were not being parsed
+
 ## [1.0.21] - 22 February, 2020
 
 * Updated Hearthis.at base url to app.hearthis.at for embeds

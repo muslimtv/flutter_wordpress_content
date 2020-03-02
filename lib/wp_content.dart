@@ -408,7 +408,9 @@ class WPContent extends StatelessWidget {
           });
         }
       });
-    } catch (exception) {/* ignore */}
+    } catch (exception) {
+      print(exception);
+    }
     return processedParagraphs;
   }
 }

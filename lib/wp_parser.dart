@@ -94,14 +94,15 @@ List<TextSpan> _parseSuperscript(List<TextSpan> content, double baseFontSize) {
     /* contains superscript */
     if (contentSpan.text.contains(tag)) {
       int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag);
+      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text: parse(contentSpan.text.substring(0, tagStartIndex - 5))
-                .body
-                .text));
+            text:
+                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
+                    .body
+                    .text));
       }
 
       String tagContent =
@@ -140,14 +141,15 @@ List<TextSpan> _parseSubscript(List<TextSpan> content, double baseFontSize) {
     /* contains superscript */
     if (contentSpan.text.contains(tag)) {
       int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag);
+      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text: parse(contentSpan.text.substring(0, tagStartIndex - 5))
-                .body
-                .text));
+            text:
+                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
+                    .body
+                    .text));
       }
 
       String tagContent =
@@ -159,7 +161,7 @@ List<TextSpan> _parseSubscript(List<TextSpan> content, double baseFontSize) {
 
       /* remaining content */
       if (tagEndIndex < contentSpan.text.length - 1) {
-        spans.addAll(_parseSuperscript([
+        spans.addAll(_parseSubscript([
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
@@ -183,17 +185,18 @@ List<TextSpan> _parseStrongTags(List<TextSpan> content, double baseFontSize) {
   if (content == null || content.isEmpty) return spans;
 
   content.forEach((contentSpan) {
-    /* contains superscript */
+    /* contains strong tag */
     if (contentSpan.text.contains(tag)) {
       int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag);
+      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text: parse(contentSpan.text.substring(0, tagStartIndex - 5))
-                .body
-                .text));
+            text:
+                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
+                    .body
+                    .text));
       }
 
       String tagContent =
@@ -205,7 +208,7 @@ List<TextSpan> _parseStrongTags(List<TextSpan> content, double baseFontSize) {
 
       /* remaining content */
       if (tagEndIndex < contentSpan.text.length - 1) {
-        spans.addAll(_parseSuperscript([
+        spans.addAll(_parseStrongTags([
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
@@ -232,14 +235,15 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
     /* contains superscript */
     if (contentSpan.text.contains(tag)) {
       int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag);
+      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text: parse(contentSpan.text.substring(0, tagStartIndex - 5))
-                .body
-                .text));
+            text:
+                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
+                    .body
+                    .text));
       }
 
       String tagContent =
@@ -269,7 +273,7 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
 
       /* remaining content */
       if (tagEndIndex < contentSpan.text.length - 1) {
-        spans.addAll(_parseSuperscript([
+        spans.addAll(_parseATags([
           TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }

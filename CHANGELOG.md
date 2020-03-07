@@ -1,3 +1,7 @@
+## [1.0.23] - 7 March, 2020
+
+* added ability to change default text alignment for paragraph text
+
 ## [1.0.22] - 2 March, 2020
 
 * Fixed an issue where multiple <strong> tags were not being parsed

@@ -50,6 +50,10 @@ class WPContent extends StatelessWidget {
   // font family for displaying arabic text
   final String arabicFontFamily;
 
+  // default text alignment for paragraph text if none specified in wp-paragraph
+  // tag
+  final TextAlign defaultParagraphTextAlign;
+
   // text alignment for WP Quote <!-- wp:quote -->
   final TextAlign quoteTextAlignment;
 
@@ -80,6 +84,7 @@ class WPContent extends StatelessWidget {
       this.fontSize = 16.0,
       this.paragraphArabicIdentifier,
       this.arabicFontFamily = '',
+      this.defaultParagraphTextAlign = TextAlign.justify,
       this.quoteTextAlignment = TextAlign.center,
       this.quoteTextColour = Colors.black,
       this.youtubeEmbedWidget,
@@ -341,7 +346,7 @@ class WPContent extends StatelessWidget {
           bool isArabic = paragraphArabicIdentifier != null &&
               paragraphContent.contains(paragraphArabicIdentifier);
 
-          TextAlign textAlign = TextAlign.justify;
+          TextAlign textAlign = defaultParagraphTextAlign;
 
           if (c.contains('"align":"center"')) {
             textAlign = TextAlign.center;

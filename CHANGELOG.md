@@ -1,3 +1,7 @@
+## [1.0.24] - April 1, 2020
+
+* Added categoryId and parentCategoryId to model/SimpleArticle.dart
+
 ## [1.0.23] - 7 March, 2020
 
 * added ability to change default text alignment for paragraph text

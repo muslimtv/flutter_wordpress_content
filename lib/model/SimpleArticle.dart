@@ -10,7 +10,9 @@ class SimpleArticle {
   final String publishedSince;
   final String teaserText;
   final FeatureImage featureImage;
+  final int parentCategoryId;
   final String parentCategory;
+  final int categoryId;
   final String category;
   final String issueTitle;
   final String issueTeaserText;
@@ -30,7 +32,9 @@ class SimpleArticle {
     this.publishedSince,
     this.teaserText,
     this.featureImage,
+    this.parentCategoryId,
     this.parentCategory,
+    this.categoryId,
     this.category,
     this.issueTitle,
     this.issueTeaserText,
@@ -51,7 +55,9 @@ class SimpleArticle {
       String publishedSince,
       String teaserText,
       FeatureImage featureImage,
+      int parentCategoryId,
       String parentCategory,
+      int categoryId,
       String category,
       String issueTitle,
       String issueTeaserText,
@@ -70,7 +76,9 @@ class SimpleArticle {
         publishedSince: publishedSince,
         teaserText: teaserText,
         featureImage: featureImage,
+        parentCategoryId: parentCategoryId,
         parentCategory: parentCategory,
+        categoryId: categoryId,
         category: category,
         issueTitle: issueTitle,
         issueTeaserText: issueTeaserText,
@@ -108,6 +116,9 @@ class SimpleArticle {
       publishedSince: json["publishedSince"],
       teaserText: json["teaserText"],
       featureImage: featureImage,
+      parentCategoryId: json["parentCategoryId"],
+      parentCategory: json["parentCategory"],
+      categoryId: json["categoryId"],
       category: json["category"],
       issueTitle: json["issueTitle"],
       issueTeaserText: json["issueTeaserText"],
@@ -135,7 +146,9 @@ class SimpleArticle {
       'publishedSince': publishedSince,
       'teaserText': teaserText,
       'featureImage': featureImageJson,
+      'parentCategoryId': parentCategoryId,
       'parentCategory': parentCategory,
+      'categoryId': categoryId,
       'category': category,
       'issueTitle': issueTitle,
       'issueTeaserText': issueTeaserText,

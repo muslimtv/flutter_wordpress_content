@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_wordpress_content/model/SimpleArticle.dart';
 
-class IssuuWidget {
+class FlipHTML5Widget {
   Widget buildWithPDF(BuildContext context, SimpleArticle pdf) {
     return Container(
-      child: Text("IssuuWiget not implemented"),
+      child: Text("FlipHTML5Widget not implemented"),
     );
   }
-
-  const IssuuWidget();
 }

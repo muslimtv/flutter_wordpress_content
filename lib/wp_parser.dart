@@ -75,7 +75,7 @@ List<TextSpan> parseFigureCaptionHTML(String content,
     _contentParsers.forEach((p) => data = p(data, baseFontSize));
     return _decodeHTML(data);
   } catch (exception) {
-    return List<TextSpan>();
+    return [];
   }
 }
 
@@ -86,36 +86,37 @@ List<TextSpan> _parseSuperscript(List<TextSpan> content, double baseFontSize) {
   final int tagLength = 5;
   final int endTagLength = 6;
 
-  List<TextSpan> spans = List<TextSpan>();
+  List<TextSpan> spans = [];
 
   if (content == null || content.isEmpty) return spans;
 
   content.forEach((contentSpan) {
     /* contains superscript */
-    if (contentSpan.text.contains(tag)) {
-      int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
+    if (contentSpan.text!.contains(tag)) {
+      int tagStartIndex = contentSpan.text!.indexOf(tag) + tagLength;
+      int tagEndIndex = contentSpan.text!.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
             text:
-                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
-                    .body
+                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
+                    .body!
                     .text));
       }
 
       String tagContent =
-          contentSpan.text.substring(tagStartIndex, tagEndIndex);
+          contentSpan.text!.substring(tagStartIndex, tagEndIndex);
 
       spans.add(TextSpan(
-          text: parse(tagContent).body.text + " ",
+          text: parse(tagContent).body!.text + " ",
           style: TextStyle(fontSize: 0.7 * baseFontSize)));
 
       /* remaining content */
-      if (tagEndIndex < contentSpan.text.length - 1) {
+      if (tagEndIndex < contentSpan.text!.length - 1) {
         spans.addAll(_parseSuperscript([
-          TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
+          TextSpan(
+              text: contentSpan.text!.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
     } else {
@@ -133,36 +134,37 @@ List<TextSpan> _parseSubscript(List<TextSpan> content, double baseFontSize) {
   final int tagLength = 5;
   final int endTagLength = 6;
 
-  List<TextSpan> spans = List<TextSpan>();
+  List<TextSpan> spans = [];
 
   if (content == null || content.isEmpty) return spans;
 
   content.forEach((contentSpan) {
     /* contains superscript */
-    if (contentSpan.text.contains(tag)) {
-      int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
+    if (contentSpan.text!.contains(tag)) {
+      int tagStartIndex = contentSpan.text!.indexOf(tag) + tagLength;
+      int tagEndIndex = contentSpan.text!.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
             text:
-                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
-                    .body
+                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
+                    .body!
                     .text));
       }
 
       String tagContent =
-          contentSpan.text.substring(tagStartIndex, tagEndIndex);
+          contentSpan.text!.substring(tagStartIndex, tagEndIndex);
 
       spans.add(TextSpan(
-          text: parse(tagContent).body.text + " ",
+          text: parse(tagContent).body!.text + " ",
           style: TextStyle(fontSize: 0.7 * baseFontSize)));
 
       /* remaining content */
-      if (tagEndIndex < contentSpan.text.length - 1) {
+      if (tagEndIndex < contentSpan.text!.length - 1) {
         spans.addAll(_parseSubscript([
-          TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
+          TextSpan(
+              text: contentSpan.text!.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
     } else {
@@ -180,36 +182,37 @@ List<TextSpan> _parseStrongTags(List<TextSpan> content, double baseFontSize) {
   final int tagLength = 8;
   final int endTagLength = 9;
 
-  List<TextSpan> spans = List<TextSpan>();
+  List<TextSpan> spans = [];
 
   if (content == null || content.isEmpty) return spans;
 
   content.forEach((contentSpan) {
     /* contains strong tag */
-    if (contentSpan.text.contains(tag)) {
-      int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
+    if (contentSpan.text!.contains(tag)) {
+      int tagStartIndex = contentSpan.text!.indexOf(tag) + tagLength;
+      int tagEndIndex = contentSpan.text!.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
             text:
-                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
-                    .body
+                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
+                    .body!
                     .text));
       }
 
       String tagContent =
-          contentSpan.text.substring(tagStartIndex, tagEndIndex);
+          contentSpan.text!.substring(tagStartIndex, tagEndIndex);
 
       spans.add(TextSpan(
-          text: parse(tagContent).body.text + " ",
+          text: parse(tagContent).body!.text + " ",
           style: TextStyle(fontWeight: FontWeight.bold)));
 
       /* remaining content */
-      if (tagEndIndex < contentSpan.text.length - 1) {
+      if (tagEndIndex < contentSpan.text!.length - 1) {
         spans.addAll(_parseStrongTags([
-          TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
+          TextSpan(
+              text: contentSpan.text!.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
     } else {
@@ -227,38 +230,38 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
   final int tagLength = 8;
   final int endTagLength = 4;
 
-  List<TextSpan> spans = List<TextSpan>();
+  List<TextSpan> spans = [];
 
   if (content == null || content.isEmpty) return spans;
 
   content.forEach((contentSpan) {
     /* contains superscript */
-    if (contentSpan.text.contains(tag)) {
-      int tagStartIndex = contentSpan.text.indexOf(tag) + tagLength;
-      int tagEndIndex = contentSpan.text.indexOf(endTag, tagStartIndex);
+    if (contentSpan.text!.contains(tag)) {
+      int tagStartIndex = contentSpan.text!.indexOf(tag) + tagLength;
+      int tagEndIndex = contentSpan.text!.indexOf(endTag, tagStartIndex);
 
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
             text:
-                parse(contentSpan.text.substring(0, tagStartIndex - tagLength))
-                    .body
+                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
+                    .body!
                     .text));
       }
 
       String tagContent =
-          contentSpan.text.substring(tagStartIndex, tagEndIndex);
+          contentSpan.text!.substring(tagStartIndex, tagEndIndex);
 
       var regex = new RegExp(r'<a[^>]+href=\"(.*?)\"[^>]*>(.*)?</a>');
 
-      Match match = regex.firstMatch("<a href=" + tagContent + "</a>");
+      Match? match = regex.firstMatch("<a href=" + tagContent + "</a>");
 
       String linkText = "";
       String link = "";
 
       if (match != null && match.groupCount >= 1) {
-        link = match.group(1);
-        linkText = match.group(2);
+        link = match.group(1)!;
+        linkText = match.group(2)!;
       }
 
       spans.add(TextSpan(
@@ -272,19 +275,20 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
             }));
 
       /* remaining content */
-      if (tagEndIndex < contentSpan.text.length - 1) {
+      if (tagEndIndex < contentSpan.text!.length - 1) {
         spans.addAll(_parseATags([
-          TextSpan(text: contentSpan.text.substring(tagEndIndex + endTagLength))
+          TextSpan(
+              text: contentSpan.text!.substring(tagEndIndex + endTagLength))
         ], baseFontSize));
       }
-    } else if (contentSpan.text.startsWith("http")) {
+    } else if (contentSpan.text!.startsWith("http")) {
       spans.add(TextSpan(
-          text: contentSpan.text + " ",
+          text: contentSpan.text! + " ",
           style: TextStyle(color: Colors.blue[800]),
           recognizer: new TapGestureRecognizer()
             ..onTap = () async {
-              if (await canLaunch(contentSpan.text)) {
-                await launch(contentSpan.text);
+              if (await canLaunch(contentSpan.text!)) {
+                await launch(contentSpan.text!);
               }
             }));
     } else {
@@ -298,6 +302,6 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
 // HTML decode text for each TextSpan
 List<TextSpan> _decodeHTML(List<TextSpan> content) {
   return content
-      .map((c) => TextSpan(text: parse(c.text).body.text, style: c.style))
+      .map((c) => TextSpan(text: parse(c.text).body!.text, style: c.style))
       .toList();
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_wordpress_content/external/FlipHTML5Widget.dart';
 import 'package:flutter_wordpress_content/external/HearthisAtWidget.dart';
 import 'package:flutter_wordpress_content/external/IssuuWidget.dart';
 import 'package:flutter_wordpress_content/external/JWPlayerWidget.dart';
@@ -146,7 +147,7 @@ class IssueEmbedWidget extends IssuuWidget {
                 "View PDF",
                 style: Theme.of(context)
                     .textTheme
-                    .body1
+                    .bodyText2
                     .copyWith(color: Colors.white),
               ),
             ),
@@ -174,6 +175,39 @@ class JWPlayerEmbedWidget extends JWPlayerWidget {
         child: Container(
           child: Text(mediaId),
         ),
+      ),
+    );
+  }
+}
+
+class FlipHTML5EmbedWidget extends FlipHTML5Widget {
+  @override
+  Widget buildWithPDF(BuildContext context, SimpleArticle pdf) {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      child: Center(
+        child: RaisedButton(
+            padding: EdgeInsets.all(10.0),
+            color: Colors.green,
+            child: Container(
+              padding: EdgeInsets.only(top: 5.0),
+              child: Text(
+                "View PDF",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2
+                    .copyWith(color: Colors.white),
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute<void>(
+                builder: (context) {
+                  return Container(
+                    child: Text(pdf.paragraphRawContent),
+                  );
+                },
+              ));
+            }),
       ),
     );
   }

@@ -7,22 +7,26 @@ void main() {
       (WidgetTester tester) async {
     String c = "shortcode -->\n[jwplayer HxVE7bbK]\n<!-- /wp:shortcode -->";
 
-    RegExpMatch regExMatch = RegExp(r'\[(\w+[\s*]+)*(\w+)\]').firstMatch(c);
+    RegExpMatch? regExMatch = RegExp(r'\[(\w+[\s*]+)*(\w+)\]').firstMatch(c);
 
     try {
-      String shortcodeType = regExMatch.group(1);
+      if (regExMatch != null) {
+        String? shortcodeType = regExMatch.group(1);
 
-      switch (shortcodeType.trim()) {
-        /* jwplayer */
-        case "jwplayer":
-          String mediaId = regExMatch.group(2);
+        if (shortcodeType != null) {
+          switch (shortcodeType.trim()) {
+            /* jwplayer */
+            case "jwplayer":
+              String? mediaId = regExMatch.group(2);
 
-          if (mediaId != "HxVE7bbK") {
-            throw new AssertionError("media id mismatch");
+              if (mediaId != "HxVE7bbK") {
+                throw new AssertionError("media id mismatch");
+              }
+              break;
+            default:
+              break;
           }
-          break;
-        default:
-          break;
+        }
       }
     } catch (exception) {/* ignore */}
   });

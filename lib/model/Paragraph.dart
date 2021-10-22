@@ -18,18 +18,18 @@ class Paragraph {
   final SimpleArticle pdf;
 
   const Paragraph(
-      {this.type,
-      this.rawContent,
-      this.textSpans,
-      this.imageUri,
-      this.jwMediaId,
-      this.youtubeVideoId,
-      this.soundcloudTrackId,
-      this.soudcloudEmbedCode,
-      this.hearthisAtTrackId,
-      this.fontFamily,
-      this.textAlign,
-      this.pdf});
+      {this.type = "",
+      this.rawContent = "",
+      this.textSpans = const [],
+      this.imageUri = "",
+      this.jwMediaId = "",
+      this.youtubeVideoId = "",
+      this.soundcloudTrackId = "",
+      this.soudcloudEmbedCode = "",
+      this.hearthisAtTrackId = "",
+      this.fontFamily = "",
+      this.textAlign = TextAlign.left,
+      this.pdf = const SimpleArticle()});
 
   factory Paragraph.heading(String rawContent, List<TextSpan> textSpans,
       String fontFamily, TextAlign textAlign) {
@@ -80,12 +80,12 @@ class Paragraph {
   }
 
   factory Paragraph.image(
-      String imageUri, String caption, List<TextSpan> captionSpans) {
+      String? imageUri, String caption, List<TextSpan> captionSpans) {
     return Paragraph(
       type: "image",
       rawContent: caption,
       textSpans: captionSpans,
-      imageUri: imageUri,
+      imageUri: imageUri ?? "",
       jwMediaId: "",
       youtubeVideoId: "",
       soundcloudTrackId: "",
@@ -94,13 +94,13 @@ class Paragraph {
     );
   }
 
-  factory Paragraph.jwplayer(String url) {
+  factory Paragraph.jwplayer(String? url) {
     return Paragraph(
       type: "youtube",
       rawContent: "",
-      textSpans: List<TextSpan>(),
+      textSpans: [],
       imageUri: "",
-      jwMediaId: url,
+      jwMediaId: url ?? "",
       youtubeVideoId: "",
       soundcloudTrackId: "",
       soudcloudEmbedCode: "",
@@ -112,7 +112,7 @@ class Paragraph {
     return Paragraph(
       type: "youtube",
       rawContent: "",
-      textSpans: List<TextSpan>(),
+      textSpans: [],
       imageUri: "",
       jwMediaId: "",
       youtubeVideoId: videoId,
@@ -126,7 +126,7 @@ class Paragraph {
     return Paragraph(
       type: "soundcloud",
       rawContent: "",
-      textSpans: List<TextSpan>(),
+      textSpans: [],
       imageUri: "",
       jwMediaId: "",
       youtubeVideoId: "",
@@ -140,7 +140,7 @@ class Paragraph {
     return Paragraph(
       type: "hearthis.at",
       rawContent: "",
-      textSpans: List<TextSpan>(),
+      textSpans: [],
       imageUri: "",
       jwMediaId: "",
       youtubeVideoId: "",
@@ -154,7 +154,7 @@ class Paragraph {
     return Paragraph(
         type: "issuu",
         rawContent: "",
-        textSpans: List<TextSpan>(),
+        textSpans: [],
         imageUri: "",
         youtubeVideoId: "",
         soundcloudTrackId: "",
@@ -171,7 +171,9 @@ class Paragraph {
       String textAlignString = json['textAlign'];
       textAlign = textAlignString == 'left'
           ? TextAlign.left
-          : textAlignString == 'center' ? TextAlign.center : TextAlign.right;
+          : textAlignString == 'center'
+              ? TextAlign.center
+              : TextAlign.right;
     } catch (exception) {/* ignore */}
 
     String type = json["type"];
@@ -180,7 +182,7 @@ class Paragraph {
 
     String fontFamily = json["fontFamily"];
 
-    List<TextSpan> textSpans = List<TextSpan>();
+    List<TextSpan> textSpans = [];
     try {
       if (type == "heading") {
         textSpans = parseHeadingHTML(rawContent,
@@ -220,7 +222,9 @@ class Paragraph {
       'fontFamily': fontFamily,
       'textAlign': textAlign == TextAlign.left
           ? 'left'
-          : textAlign == TextAlign.center ? 'center' : 'right',
+          : textAlign == TextAlign.center
+              ? 'center'
+              : 'right',
     };
   }
 

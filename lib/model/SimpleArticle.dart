@@ -25,26 +25,26 @@ class SimpleArticle {
   final List<String> authors;
 
   const SimpleArticle({
-    this.id,
-    this.title,
-    this.link,
-    this.publishedDate,
-    this.publishedSince,
-    this.teaserText,
-    this.featureImage,
-    this.parentCategoryId,
-    this.parentCategory,
-    this.categoryId,
-    this.category,
-    this.issueTitle,
-    this.issueTeaserText,
-    this.issueNumber,
-    this.volumeNumber,
-    this.paragraphRawContent,
-    this.issuePublishedDate,
-    this.isPDFArticle,
-    this.pdfURL,
-    this.authors,
+    this.id = 0,
+    this.title = "",
+    this.link = "",
+    this.publishedDate = "",
+    this.publishedSince = "",
+    this.teaserText = "",
+    this.featureImage = const FeatureImage(),
+    this.parentCategoryId = 0,
+    this.parentCategory = "",
+    this.categoryId = 0,
+    this.category = "",
+    this.issueTitle = "",
+    this.issueTeaserText = "",
+    this.issueNumber = "",
+    this.volumeNumber = "",
+    this.paragraphRawContent = "",
+    this.issuePublishedDate = "",
+    this.isPDFArticle = false,
+    this.pdfURL = "",
+    this.authors = const [],
   });
 
   factory SimpleArticle.newInstance(
@@ -91,14 +91,14 @@ class SimpleArticle {
         authors: authors);
   }
 
-  factory SimpleArticle.pdfArticle(String content, String link) {
-    return SimpleArticle(paragraphRawContent: content, link: link);
+  factory SimpleArticle.pdfArticle(String content, String? link) {
+    return SimpleArticle(paragraphRawContent: content, link: link ?? "");
   }
 
   factory SimpleArticle.fromJson(Map<String, dynamic> json) {
     if (json == null) return new SimpleArticle();
 
-    List<String> authors = List<String>();
+    List<String> authors = [];
     try {
       authors = json["authors"].map((a) => a).toList().cast<String>();
     } catch (exception) {/* ignore */}
@@ -163,7 +163,7 @@ class SimpleArticle {
   }
 
   static List<dynamic> toJsonFromList(List<SimpleArticle> articles) {
-    if (articles == null) return List<dynamic>();
+    if (articles == null) return [];
     return articles.map((a) => a.toJson()).toList();
   }
 
@@ -180,6 +180,6 @@ class SimpleArticle {
 
   @override
   bool operator ==(other) {
-    return id == other.id;
+    return id == (other as SimpleArticle).id;
   }
 }

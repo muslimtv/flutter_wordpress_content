@@ -82,16 +82,16 @@ class WPContent extends StatelessWidget {
       this.imageCaptionTextColor = Colors.black,
       this.fontFamily = '',
       this.fontSize = 16.0,
-      this.paragraphArabicIdentifier,
+      this.paragraphArabicIdentifier = "",
       this.arabicFontFamily = '',
       this.defaultParagraphTextAlign = TextAlign.justify,
       this.quoteTextAlignment = TextAlign.center,
       this.quoteTextColour = Colors.black,
-      this.youtubeEmbedWidget,
-      this.soundcloudEmbedWidget,
-      this.hearthisAtWidget,
-      this.issuuEmbedWidget,
-      this.jwPlayerWidget});
+      this.youtubeEmbedWidget = const YouTubeWidget(),
+      this.soundcloudEmbedWidget = const SoundCloudWidget(),
+      this.hearthisAtWidget = const HearthisAtWidget(),
+      this.issuuEmbedWidget = const IssuuWidget(),
+      this.jwPlayerWidget = const JWPlayerWidget()});
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +253,7 @@ class WPContent extends StatelessWidget {
   }
 
   List<Paragraph> _processParagraphs(String rawContent) {
-    List<Paragraph> processedParagraphs = List<Paragraph>();
+    List<Paragraph> processedParagraphs = [];
     try {
       List<String> contentParts = rawContent.split("<!-- wp:");
 
@@ -266,25 +266,28 @@ class WPContent extends StatelessWidget {
                 c.indexOf("<figcaption>") + 12, c.indexOf("</figcaption>"));
           }
 
+          RegExpMatch? fm = RegExp(r'src\s*=\s*"(.+?)"').firstMatch(c);
           processedParagraphs.add(Paragraph.image(
-              RegExp(r'src\s*=\s*"(.+?)"').firstMatch(c).group(1),
+              fm != null ? fm.group(1) : "",
               caption,
               parseFigureCaptionHTML(caption, baseFontSize: 0.7 * fontSize)));
         } else if (c.startsWith("core-embed/issuu")) {
           processedParagraphs
               .add(Paragraph.issuu(SimpleArticle.pdfArticle(c, null)));
         } else if (c.startsWith("shortcode")) {
-          RegExpMatch regExMatch =
+          RegExpMatch? regExMatch =
               RegExp(r'\[(\w+[\s*]+)*(\w+)\]').firstMatch(c);
 
           try {
-            switch (regExMatch.group(1).trim()) {
-              case "jwplayer":
-                processedParagraphs
-                    .add(Paragraph.jwplayer(regExMatch.group(2)));
-                break;
-              default:
-                break;
+            if (regExMatch != null) {
+              switch (regExMatch.group(1)!.trim()) {
+                case "jwplayer":
+                  processedParagraphs
+                      .add(Paragraph.jwplayer(regExMatch.group(2)));
+                  break;
+                default:
+                  break;
+              }
             }
           } catch (exception) {/* ignore */}
         } else if (c.startsWith("core-embed/youtube")) {

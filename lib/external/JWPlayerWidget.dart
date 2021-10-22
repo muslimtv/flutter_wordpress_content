@@ -6,4 +6,6 @@ class JWPlayerWidget {
       child: Text("JWPlayerWidget not implemented"),
     );
   }
+
+  const JWPlayerWidget();
 }

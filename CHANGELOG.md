@@ -1,3 +1,8 @@
+## [1.0.25] - October 22, 2021
+
+* Updated to Android v2 Embedding API
+* Using null-safety
+
 ## [1.0.24] - April 1, 2020
 
 * Added categoryId and parentCategoryId to model/SimpleArticle.dart

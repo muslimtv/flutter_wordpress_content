@@ -3,7 +3,7 @@ class FeatureImage {
   final String medium;
   final String large;
 
-  FeatureImage({this.small, this.medium, this.large});
+  const FeatureImage({this.small = "", this.medium = "", this.large = ""});
 
   factory FeatureImage.fromJson(Map<String, dynamic> json) {
     if (json == null) return new FeatureImage();

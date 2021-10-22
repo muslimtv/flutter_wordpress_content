@@ -3,7 +3,7 @@ import 'package:html_unescape/html_unescape.dart';
 
 class HearthisAtWidget {
   static String getIdFromUrl(String url, [bool trimWhitespaces = true]) {
-    if (url == null || url.length == 0) return null;
+    if (url == null || url.length == 0) return "";
 
     if (trimWhitespaces) url = url.trim();
 
@@ -14,11 +14,11 @@ class HearthisAtWidget {
     url = url.replaceAll("\n", "");
 
     for (var exp in _regexps) {
-      Match match = exp.firstMatch(url);
-      if (match != null && match.groupCount >= 1) return match.group(1);
+      Match? match = exp.firstMatch(url);
+      if (match != null && match.groupCount >= 1) return match.group(1)!;
     }
 
-    return null;
+    return "";
   }
 
   static List<RegExp> _regexps = [
@@ -31,4 +31,6 @@ class HearthisAtWidget {
       child: Text("HearthisAtWidget not implemented"),
     );
   }
+
+  const HearthisAtWidget();
 }

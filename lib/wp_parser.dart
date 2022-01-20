@@ -99,10 +99,7 @@ List<TextSpan> _parseSuperscript(List<TextSpan> content, double baseFontSize) {
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text:
-                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
-                    .body!
-                    .text));
+            text: contentSpan.text!.substring(0, tagStartIndex - tagLength)));
       }
 
       String tagContent =
@@ -147,10 +144,7 @@ List<TextSpan> _parseSubscript(List<TextSpan> content, double baseFontSize) {
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text:
-                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
-                    .body!
-                    .text));
+            text: contentSpan.text!.substring(0, tagStartIndex - tagLength)));
       }
 
       String tagContent =
@@ -195,10 +189,7 @@ List<TextSpan> _parseStrongTags(List<TextSpan> content, double baseFontSize) {
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text:
-                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
-                    .body!
-                    .text));
+            text: contentSpan.text!.substring(0, tagStartIndex - tagLength)));
       }
 
       String tagContent =
@@ -243,10 +234,7 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
       /* add content before tag */
       if (tagStartIndex > 0) {
         spans.add(TextSpan(
-            text:
-                parse(contentSpan.text!.substring(0, tagStartIndex - tagLength))
-                    .body!
-                    .text));
+            text: contentSpan.text!.substring(0, tagStartIndex - tagLength)));
       }
 
       String tagContent =
@@ -302,6 +290,11 @@ List<TextSpan> _parseATags(List<TextSpan> content, double baseFontSize) {
 // HTML decode text for each TextSpan
 List<TextSpan> _decodeHTML(List<TextSpan> content) {
   return content
-      .map((c) => TextSpan(text: parse(c.text).body!.text, style: c.style))
+      .map(
+        (c) => TextSpan(
+            text: parse(c.text).body!.text,
+            style: c.style,
+            recognizer: c.recognizer),
+      )
       .toList();
 }

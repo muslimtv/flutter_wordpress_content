@@ -1,3 +1,7 @@
+## [1.0.26] - January 20, 2022
+
+* Fixes an issue causing nested text spans to not be tap-able
+
 ## [1.0.25] - October 22, 2021
 
 * Updated to Android v2 Embedding API
